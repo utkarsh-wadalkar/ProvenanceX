@@ -1,24 +1,24 @@
-# ProvenanceX: media passports for every share
+# ProvenanceX: media media records for every share
 
 ## Purpose
 
-Photos, videos, and AI-generated posts move through feeds and chats faster than their source information. ProvenanceX lets everyday users compare a downloaded file with a registered original, inspect its signed source declaration, and follow its edit history. Creators can register their media and share a public passport alongside their post.
+Photos, videos, and AI-generated posts move through feeds and chats faster than their source information. ProvenanceX lets everyday users compare a downloaded file with a registered original, inspect its signed source declaration, and follow its edit history. Creators can register their media and share a public media record alongside their post.
 
 ## Illustrative user story
 
-A person receives a striking video in a group chat and wants to repost it. They download the video and check it in ProvenanceX. An exact match links to its registering wallet, declared source, and history. A synthetic declaration is visibly flagged. If no passport matches, the source remains unknown. For images, a similarity candidate can suggest a related original after an edit; it is a hint, not proof. This is a proposed workflow, not a measured customer case study.
+A person receives a striking video in a group chat and wants to repost it. They download the video and check it in ProvenanceX. An exact match links to its registering wallet, declared source, and history. A synthetic declaration is visibly flagged. If no media record matches, the source remains unknown. For images, a similarity candidate can suggest a related original after an edit; it is a hint, not proof. This is a proposed workflow, not a measured customer case study.
 
 ## Three-minute pitch
 
-“Keep the source with every share. ProvenanceX gives photos, videos, and files a portable media passport on Monad. A creator signs what they know about the source: captured, synthetic, edited, or unknown. Anyone can compare the actual file with that registration and inspect its history. In the demo, we register a synthetic sample, verify the downloaded PNG, change a pixel, and show the exact match fail while image similarity finds a candidate. We then append a real history event. File identity, signed source claims, and content truth are separate questions. Our next step is testing whether creators and everyday users can make provenance part of how they post and repost.”
+“Keep the source with every share. ProvenanceX gives photos, videos, and files a portable media media record on Monad. A creator signs what they know about the source: captured, synthetic, edited, or unknown. Anyone can compare the actual file with that registration and inspect its history. In the demo, we register a synthetic sample, verify the downloaded PNG, change a pixel, and show the exact match fail while image similarity finds a candidate. We then append a real history event. File identity, signed source claims, and content truth are separate questions. Our next step is testing whether creators and everyday users can make provenance part of how they post and repost.”
 
 ## What works today
 
-- Exact canonical SHA-256 comparison for photos, videos, and files; only ProvenanceX's own PNG passport metadata is excluded.
+- Exact canonical SHA-256 comparison for photos, videos, and files; only ProvenanceX's own PNG media record metadata is excluded.
 - Wallet-signed captured, synthetic, edited, or unknown declarations; legacy untagged records remain unknown.
 - Optional publisher allowlist signal. It identifies configured wallet addresses, not legal identity or content truth.
 - Image dHash similarity hints, complete hash-chain history, parent/derivative links, and revocation.
-- Public passport pages, embeddable badges, PNG downloads, QR certificates, and a real Monad Testnet demo.
+- Public media record pages, embeddable badges, PNG downloads, QR certificates, and a real Monad Testnet demo.
 
 Download media from a social post for comparison; direct social URL ingestion is not implemented. Video checks compare exact bytes only. The product does not automatically classify AI/deepfakes or determine whether a post is true.
 
@@ -35,7 +35,7 @@ Registration currently has no platform fee; users pay network gas. Proposed expe
 
 ## Innovation backed by the demo
 
-One portable record joins an EIP-712 source declaration, exact file identity, paged on-chain audit history, and derivative links. PNG passports travel inside a downloadable file; public links and badges share the record separately. Exact comparisons and image similarity remain visibly distinct. The implementation avoids full-history log scans and verifies the entire stored hash chain. Explain these working differences without claiming a novel AI detector or unsupported uniqueness.
+One portable record joins an EIP-712 source declaration, exact file identity, paged on-chain audit history, and derivative links. PNG media records travel inside a downloadable file; public links and badges share the record separately. Exact comparisons and image similarity remain visibly distinct. The implementation avoids full-history log scans and verifies the entire stored hash chain. Explain these working differences without claiming a novel AI detector or unsupported uniqueness.
 
 ## Evidence and handoff
 

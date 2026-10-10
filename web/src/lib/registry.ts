@@ -34,7 +34,7 @@ export async function getPassport(passportId: Hex, client?: PublicClient): Promi
   return cached(`passport:${passportId.toLowerCase()}`, () => rpc.readContract({ address, abi, functionName: "getPassport", args: [passportId] }) as Promise<Record<string, unknown>>);
 }
 export async function getPassports(passportIds: readonly Hex[], client?: PublicClient): Promise<Record<string, unknown>[]> {
-  if (passportIds.length > PAGE_MAX) throw new RangeError(`At most ${PAGE_MAX} passports can be fetched in one batch.`);
+  if (passportIds.length > PAGE_MAX) throw new RangeError(`At most ${PAGE_MAX} media records can be fetched in one batch.`);
   if (passportIds.length === 0) return [];
   const { client: rpc, address } = setup(client);
   const readOne = (passportId: Hex) => rpc.readContract({ address, abi, functionName: "getPassport", args: [passportId] }) as Promise<Record<string, unknown>>;

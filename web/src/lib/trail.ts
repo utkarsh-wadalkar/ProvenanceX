@@ -22,7 +22,7 @@ export function verifyTrailEntries(entries: readonly TrailEntry[], expectedHead:
     if (calculated.toLowerCase() !== entry.trailHead.toLowerCase()) return { valid: false, count: entries.length, finalHead: previous, error: "Trail hash does not match entry fields.", invalidIndex: i };
     previous = calculated;
   }
-  if (previous.toLowerCase() !== expectedHead.toLowerCase()) return { valid: false, count: entries.length, finalHead: previous, error: "Final head does not match passport state." };
+  if (previous.toLowerCase() !== expectedHead.toLowerCase()) return { valid: false, count: entries.length, finalHead: previous, error: "Final head does not match the registered source record." };
   return { valid: true, count: entries.length, finalHead: previous };
 }
 

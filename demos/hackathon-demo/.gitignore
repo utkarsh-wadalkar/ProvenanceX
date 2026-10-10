@@ -1,0 +1,6 @@
+.venv/
+vendor/
+renders/
+smoke/
+__pycache__/
+preview.png

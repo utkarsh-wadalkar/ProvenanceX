@@ -37,7 +37,7 @@ export function readPassportMetadata(input: Uint8Array): PassportMetadata | null
 }
 export function writePassportMetadata(input: Uint8Array, metadata: PassportMetadata): Uint8Array {
   const bytes = new Uint8Array(input); const chunks = parsePngChunks(bytes);
-  if (!metadataFrom(JSON.stringify(metadata))) throw new Error("Invalid passport metadata.");
+  if (!metadataFrom(JSON.stringify(metadata))) throw new Error("Invalid media record metadata.");
   const text = concat([encoder.encode("provenancex\0"), encoder.encode(JSON.stringify(metadata))]);
   const parts: Uint8Array[] = [bytes.subarray(0, 8)]; let added = false;
   for (const item of chunks) {

@@ -58,8 +58,8 @@ describe("signed media source declarations", () => {
   });
 
   it("separates a revoked record page from an exact revoked-file match", () => {
-    expect(mediaIntegrityLabel("revoked-record")).toBe("Revoked passport record · file comparison required");
-    expect(mediaIntegrityLabel("revoked")).toBe("Exact content match · passport revoked");
+    expect(mediaIntegrityLabel("revoked-record")).toBe("Revoked media record · file comparison required");
+    expect(mediaIntegrityLabel("revoked")).toBe("Exact content match · registration revoked");
     const record = evaluateMediaPolicy({ decision: "revoked-record", signedTool: "[captured] Newsroom" });
     expect(record.reviewReasons.join(" ")).toMatch(/no file was compared/);
   });

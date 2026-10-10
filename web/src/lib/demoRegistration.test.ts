@@ -23,7 +23,7 @@ describe("guided demo registration declaration", () => {
 
     const failedSelection = evaluateMediaPolicy({ decision: demoDecisionForFileStatus("unverified"), signedTool: DEMO_SIGNED_TOOL });
     expect(failedSelection.reviewReasons.join(" ")).toMatch(/no verification result/);
-    expect(failedSelection.reviewReasons.join(" ")).not.toMatch(/No registered passport matched this file/);
+    expect(failedSelection.reviewReasons.join(" ")).not.toMatch(/No registered media record matched this file/);
 
     const recordOnly = evaluateMediaPolicy({ decision: "record", signedTool: DEMO_SIGNED_TOOL });
     expect(recordOnly.reviewReasons.join(" ")).toMatch(/no file was compared/);

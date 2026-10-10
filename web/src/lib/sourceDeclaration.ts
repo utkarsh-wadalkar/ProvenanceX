@@ -19,13 +19,13 @@ export function parseSourceDeclaration(signedTool: string): { source: SourceType
 }
 
 export function mediaIntegrityLabel(decision: MediaDecision): string {
-  if (decision === "exact") return "Exact passport match · file integrity verified";
+  if (decision === "exact") return "Exact file match · integrity verified";
   if (decision === "record") return "Registered hash · file comparison required";
-  if (decision === "revoked") return "Exact content match · passport revoked";
-  if (decision === "revoked-record") return "Revoked passport record · file comparison required";
+  if (decision === "revoked") return "Exact content match · registration revoked";
+  if (decision === "revoked-record") return "Revoked media record · file comparison required";
   if (decision === "perceptual") return "Modified / re-encoded copy · not an exact match";
   if (decision === "unverified") return "Not verified · no authenticity result";
-  return "No passport record found";
+  return "No matching media record found";
 }
 
 /** Build the exact tool string committed by the existing signed registration. */
@@ -62,12 +62,12 @@ export function evaluateMediaPolicy(input: {
   const creator = input.creator ?? "";
   const publisherTrust = !creator || !isAddress(creator) ? "unknown" : allowlist.addresses.has(creator.toLowerCase()) ? "trusted" : "unlisted";
   const reviewReasons: string[] = [];
-  if (input.decision === "none") reviewReasons.push("No registered passport matched this file.");
-  if (input.decision === "record") reviewReasons.push("A passport record exists, but no file was compared in this view.");
-  if (input.decision === "revoked-record") reviewReasons.push("A revoked passport record loaded, but no file was compared in this view.");
-  if (input.decision === "unverified") reviewReasons.push("This selected file has no verification result; do not infer whether a passport exists.");
+  if (input.decision === "none") reviewReasons.push("No registered media record matched this file.");
+  if (input.decision === "record") reviewReasons.push("A media record exists, but no file was compared in this view.");
+  if (input.decision === "revoked-record") reviewReasons.push("A revoked media record loaded, but no file was compared in this view.");
+  if (input.decision === "unverified") reviewReasons.push("This selected file has no verification result; do not infer whether a media record exists.");
   if (input.decision === "perceptual") reviewReasons.push("This file differs from a visually similar registered asset.");
-  if (input.decision === "revoked") reviewReasons.push("The matching passport has been revoked.");
+  if (input.decision === "revoked") reviewReasons.push("The matching registration has been revoked.");
   if (declaration.source === "synthetic") reviewReasons.push("The signer declared this media AI-generated or synthetic; no detector was used.");
   if (declaration.source === "captured" && publisherTrust !== "trusted") reviewReasons.push("Captured media is self-declared by an unlisted publisher; review its origin.");
   if (declaration.source === "unknown") reviewReasons.push("This source is unknown or comes from a legacy unsigned declaration.");

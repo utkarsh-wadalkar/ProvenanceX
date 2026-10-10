@@ -1,0 +1,8 @@
+Media gets shared faster than its source. ProvenanceX gives each file a signed media passport.
+This is the real application, running on a local EVM with the Monad contract.
+Choose a file, declare its source, and fingerprint it in the browser.
+Here, procedural artwork is registered as synthetic. That declaration is signed, not guessed by an AI detector.
+Download the passport PNG, then check that same file. Its canonical SHA-256 hash matches the live registry, while embedded metadata is treated only as a hint.
+Now change one pixel. Exact identity fails; image similarity finds the original as a candidate, not proof.
+Append an edit event and open the public passport. The browser verifies the complete hash chain against the contract's stored head.
+File identity, source claims, and context stay separate, so people can review before sharing.

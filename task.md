@@ -2,13 +2,13 @@
 
 Shared by Utkarsh and Codex. Update this file as work progresses; keep completed checks and pending deployment requirements accurate.
 
-Last updated: 10 October 2026, 15:17 IST.
+Last updated: 10 October 2026, 15:52 IST.
 
 Submission schedule: engineering handoff by **17:15 IST**; reserve **17:15–17:30 IST** for the form and video; submit before **17:30 IST**, as requested.
 
 ## Current focus
 
-Public GitHub, verified testnet contract, and Vercel hosting are live. Finish a focused verification-status fix, publish the final build, and record submission evidence. Build in Public belongs to Utkarsh.
+Public GitHub, verified testnet contract, and the general-media Vercel build are live. The terminology update is validated: Create now says Register your media, and all frontend pages use media registration/record wording. Utkarsh's next source push will publish this refinement to the connected Vercel project. Build in Public belongs to Utkarsh.
 
 ## Product purpose
 
@@ -19,13 +19,13 @@ General media provenance for everyday users, creators, and social sharing: regis
 | Track | Criterion | Points | Status / evidence |
 |---|---|---:|---|
 | Basic | Public GitHub repository | 25 | **Evidence ready:** [ProvenanceX](https://github.com/utkarsh-wadalkar/ProvenanceX), public repository |
-| Basic | README with live public page and contract address | 25 | Documentation task active; real links to be recorded |
+| Basic | README with live public page and contract address | 25 | **Evidence ready:** README contains live app, public repository, contract, and transaction links |
 | Basic | Contract deployed on Monad Testnet | 25 | **Evidence ready:** address `0xe33c5b4e0d9148bab301807d39bf2c0349037cce`, confirmed block 69776667 |
-| Basic | Publicly hosted project | 25 | **Evidence ready:** [live app](https://provenancex.vercel.app), public access verified; final status-label fix pending redeployment |
-| Project Working | All announced functions work | 25 | Unit checks and UI review pass; cross-stack/browser transaction checks pending |
+| Basic | Publicly hosted project | 25 | **Evidence ready:** [live app](https://provenancex.vercel.app), general-media build `48711c6` READY and public homepage checked; terminology refinement in progress |
+| Project Working | All announced functions work | 25 | 20 web tests, contract/exporter checks, local cross-stack integration, and real testnet registration/verification/append rehearsal pass; final review found no blocking code issue |
 | Project Working | Live chain transaction during demo | 25 | **Rehearsal confirmed:** [register](https://testnet.monadexplorer.com/tx/0xaa5c6aa579dcabfde0c73e92da53cd628e338ba7d9b61c72fd461d98a99cf250) and [append](https://testnet.monadexplorer.com/tx/0x67ea0b93fd4247372e8024e23bbd0b93fed1b81a7ae8f1bd80d0277ee6767c75); repeat live during pitch |
-| Project Working | Explorer verifies contract source | 25 | **Source verified:** [public Monad Sourcify proof](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0xe33c5b4e0d9148bab301807d39bf2c0349037cce), `exact_match`; MonadVision data API currently returns CORS/403 errors |
-| Project Working | Someone else can run from README | 25 | Clean source install test active; teammate handoff still needed |
+| Project Working | Explorer verifies contract source | 25 | **Source verified:** [MonadVision contract](https://testnet.monadvision.com/address/0xe33c5b4e0d9148bab301807d39bf2c0349037cce?tab=Contract) shows Full Match; public Monad Sourcify proof also confirms `exact_match` |
+| Project Working | Someone else can run from README | 25 | Clean source copy passed setup, tests, and build; public clone passed root setup and 16 contract tests. Independent teammate handoff remains to be demonstrated |
 | Bonus | Same contract deployed on Monad Mainnet | 25 | Fresh locally configured mainnet burner needed; shared chat key is testnet-only |
 | Bonus | Public page on custom domain | 15 | Utkarsh will provide another domain; existing account domain not selected |
 | Bonus | Pre-market fit | up to 20 | Prepare customer/problem/pilot evidence and pitch; judges award points |
@@ -52,15 +52,16 @@ No points are claimed as awarded. Check criteria only after the required evidenc
 - [x] Build `/api/verify`, QR certificates, downloadable files, badge embeds, and bundled sample artwork.
 - [ ] Validate browser flows, responsive layout, and failure states. **Active**
 - [x] Validate TypeScript helpers against the actual contract on a local Anvil chain.
-- [ ] Complete README, submission sheet, social copy, video scripts, and demo checklist.
-- [ ] Align all product surfaces and pitch with general media provenance and social sharing. **Active**
+- [x] Complete README, submission sheet, social copy, video scripts, and demo checklist; team-owned names and publication evidence remain to be supplied.
+- [x] Align all product surfaces and pitch with general media provenance and social sharing.
+- [x] Replace visible passport terminology with clear media registration and verification wording across pages and share image; validated locally, awaiting source publication.
 - [x] Test setup from a clean source copy; additionally cloned the public repository and passed its root setup and all 16 contract tests.
 
 ## Validation evidence
 
 - Contract: **16/16 tests pass**, including 256 Hamming-distance fuzz cases and stored-block assertions.
 - Contract coverage, including the block-number amendment: **100% lines and functions**, 99.15% statements, 95.24% branches.
-- Web: **20 unit tests passed** before the general-media copy update, including record-only, revoked-record, and displayed-file status regressions. General-media validation is active. Optional Anvil integration passed separately.
+- Web: **20 unit tests passed** for the terminology update, including record-only, revoked-record, and displayed-file status regressions. Optional Anvil integration passed separately.
 - Web typecheck and lint: **pass**.
 - Web production build: **passes**, including the UI review fixes. Windows `.next` permissions required an escalated build retry.
 - Contract task review: **approved**.
@@ -79,9 +80,9 @@ No points are claimed as awarded. Check criteria only after the required evidenc
 - [x] Export real contract address, mined block, deployment transaction, and ABI.
 - Contract: [`0xe33c5b4e0d9148bab301807d39bf2c0349037cce`](https://testnet.monadvision.com/address/0xe33c5b4e0d9148bab301807d39bf2c0349037cce?tab=Contract).
 - Deployment: [confirmed transaction](https://testnet.monadvision.com/tx/0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba), block **69776667**, chain **10143**.
-- [ ] Publish the validated frontend to Vercel and verify public access.
-- [ ] Record live URL, contract / explorer links, and demo transaction hashes.
-- [x] Publish source to a public GitHub repository. Utkarsh connected and published `main`; Codex verified public access and deployed revision `c17d9ffd6cc25a10de8c424a056c77da5b8f279a`. This environment prohibits Codex from creating Git commits.
+- [x] Publish the validated general-media frontend to Vercel and verify public access (`48711c6`, READY).
+- [x] Record live URL, contract / explorer links, and demo transaction hashes.
+- [x] Publish source to a public GitHub repository. Utkarsh published `main`; the general-media deployment uses revision `48711c6ed2f8ac7d35ec20548c97a02122587b39`. This environment prohibits Codex from creating Git commits.
 - [ ] Record / publish demo and ad videos, social posts, and submission evidence.
 
 Do not paste private keys into this file or chat. Configure a disposable, funded testnet deployer in the ignored local environment file. An optional public demo key must be a separate testnet-only burner.
@@ -113,3 +114,5 @@ All new timestamps use IST (UTC+05:30). Earlier entries did not record clock tim
 
 - 10 Oct, 14:45 IST: Added timestamps and the 17:15 engineering / 17:30 submission schedule. Final source-label fixes approved; web 20 tests pass, one optional integration test skipped, typecheck/lint/build pass. Public GitHub clean-clone contract setup and all 16 contract tests pass. Final frontend publication and documentation evidence update in progress.
 - 10 Oct, 15:17 IST: User expanded the product to general photos, videos, files, and social sharing and removed the earlier niche. Updated every frontend page, shared header/footer, verification guidance, metadata, README, pitch, and social/video drafts. Local validation and production publication are pending. Browser automation and the Luna documentation agent hit account usage limits; local source edits continue.
+- 10 Oct, 15:48 IST: General-media revision 48711c6 is READY on Vercel; public homepage shows photos, videos, and social-sharing copy. MonadVision displays verified Full Match contract source. Final Luna review found no blocking code issues. New copy task replaces visible passport terminology across the frontend; publication and validation follow.
+- 10 Oct, 15:52 IST: Replaced visible passport labels across Overview, Create, Verify, Demo, public record, errors, QR text, and share image. Create now says Register your media / Registration details. Social-post guidance explicitly requires downloaded files. README and submission copy use general media wording; 20 web tests, typecheck, lint, production build, and scoped Luna review pass. Source publication pending Utkarsh push; no Git commits created by Codex.

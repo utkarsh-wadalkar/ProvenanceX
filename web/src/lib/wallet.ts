@@ -57,7 +57,7 @@ export async function registerPassport(input: { contentHash: Hex; perceptualHash
       if (event.eventName === "PassportRegistered" && event.args.passportId) return { passportId: event.args.passportId, transactionHash: hash as Hex, receipt, signerAddress: account };
     } catch { /* Ignore unrelated contract logs. */ }
   }
-  throw new Error("Registration succeeded but its PassportRegistered event was not found in the confirmed receipt.");
+  throw new Error("Registration succeeded, but its confirmation event was missing from the confirmed receipt.");
 }
 export async function appendPassportEvent(passportId: Hex, eventType: string, dataHash: Hex) {
   const address = requireDeployment(); const account = await walletAccount();

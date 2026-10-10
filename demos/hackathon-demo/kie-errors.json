@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-10",
+  "provider": "KIE only",
+  "endpoint": "https://api.kie.ai/api/v1/jobs/createTask",
+  "authentication": "Bearer token loaded privately from project .env; deliberately omitted",
+  "tasks": [
+    {
+      "taskId": "b618643afafd040dbff96ec8e2d5c156",
+      "request": {
+        "model": "elevenlabs/text-to-speech-turbo-2-5",
+        "input": {
+          "text": "This is a narration test for the hackathon demo.",
+          "voice": "EkK5I93UQWFDigLMpZcX",
+          "stability": 0.5,
+          "similarity_boost": 0.75,
+          "style": 0,
+          "speed": 1,
+          "timestamps": false,
+          "language_code": "en"
+        }
+      },
+      "httpStatus": 200,
+      "apiCode": 200,
+      "state": "fail",
+      "failCode": "500",
+      "failMsg": "Internal Error, Please try again later.",
+      "resultPresent": false
+    },
+    {
+      "taskId": "13a83b97dfc7d2a5d4de9069b093528c",
+      "request": {
+        "model": "elevenlabs/text-to-speech-turbo-2-5",
+        "input": {
+          "text": "This is a narration test for the hackathon demo.",
+          "voice": "21m00Tcm4TlvDq8ikWAM",
+          "stability": 0.5,
+          "similarity_boost": 0.75,
+          "style": 0,
+          "speed": 1,
+          "timestamps": false,
+          "language_code": "en"
+        }
+      },
+      "httpStatus": 200,
+      "apiCode": 200,
+      "state": "fail",
+      "failCode": "500",
+      "failMsg": "Internal Error, Please try again later.",
+      "resultPresent": false
+    },
+    {
+      "taskId": "87c572ff0c6e1a5a51e6295a138dc643",
+      "request": {
+        "model": "elevenlabs/text-to-speech-multilingual-v2",
+        "input": {
+          "text": "This is a narration test for the hackathon demo.",
+          "voice": "21m00Tcm4TlvDq8ikWAM",
+          "stability": 0.5,
+          "similarity_boost": 0.75,
+          "style": 0,
+          "speed": 1,
+          "timestamps": false,
+          "language_code": "en"
+        }
+      },
+      "httpStatus": 200,
+      "apiCode": 200,
+      "state": "fail",
+      "failCode": "500",
+      "failMsg": "Internal Error, Please try again later.",
+      "resultPresent": false
+    },
+    {
+      "taskId": "e59c808ceec600e4eefd9a442e0bf9f1",
+      "request": {
+        "model": "elevenlabs/text-to-speech-turbo-2-5",
+        "input": {
+          "text": "This is a narration test for the hackathon demo.",
+          "voice": "Rachel",
+          "stability": 0.5,
+          "similarity_boost": 0.75,
+          "style": 0,
+          "speed": 1,
+          "timestamps": false,
+          "language_code": ""
+        }
+      },
+      "httpStatus": 200,
+      "apiCode": 200,
+      "state": "fail",
+      "failCode": "500",
+      "failMsg": "Internal Error, Please try again later.",
+      "resultPresent": false
+    }
+  ],
+  "additionalAttempt": {
+    "voice": "EkK5I93UQWFDigLMpZcX",
+    "language_code": "",
+    "result": "Connection timeout before a task ID was returned. Acceptance unknown; do not automatically resubmit."
+  }
+}
