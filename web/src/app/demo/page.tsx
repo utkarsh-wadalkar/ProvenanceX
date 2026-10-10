@@ -21,10 +21,10 @@ type Signer = { mode: "wallet" | "demo-key"; address: Address };
 const sample = "/samples/planet.png";
 const emptyId = `0x${"0".repeat(64)}`;
 const steps = [
-  ["Register a real asset", "Create a unique variation and register it on testnet."],
-  ["Verify the downloaded copy", "Choose the registered PNG you saved and check its embedded media record and live hash."],
-  ["Change one pixel", "See exact matching fail and perceptual matching find the record."],
-  ["Append the derivative", "Write a real lineage event using the original registration signer."],
+  ["1. Government Official Registers Release", "Simulate an official department wallet registering an official photograph on Monad Testnet."],
+  ["2. Citizen Verifies Downloaded Release", "Select the downloaded signed PNG file and confirm its authentic registration and signing wallet."],
+  ["3. Detect Unauthorized Pixel Alterations", "Change one pixel to observe how exact hash matching flags modified copies."],
+  ["4. Append Official Lineage Update", "Record an official update or derivative event on Monad using the authorized publisher wallet."],
 ];
 
 export default function Demo() {
@@ -58,7 +58,7 @@ export default function Demo() {
     const response = await fetch(sample, { signal: AbortSignal.timeout(8000) });
     if (!response.ok || !(response.headers.get("content-type") || "").startsWith("image/png")) throw new Error("Bundled sample could not be loaded safely.");
     const bytes = await readBoundedResponse(response, MAX_ASSET_BYTES, "Sample image");
-    const file = new File([toArrayBuffer(bytes)], `demo-${Date.now()}.png`, { type: "image/png" });
+    const file = new File([toArrayBuffer(bytes)], `official-release-${Date.now()}.png`, { type: "image/png" });
     const prepared = await prepareAsset(file);
     const bitmap = await decodeSafeImage(prepared.file);
     try {
@@ -86,7 +86,7 @@ export default function Demo() {
       const download = new Blob([toArrayBuffer(output)], { type: "image/png" });
       assertByteLimit(download.size, MAX_ASSET_BYTES, "Registered PNG");
       const url = URL.createObjectURL(download);
-      const anchor = document.createElement("a"); anchor.href = url; anchor.download = `provenancex-${passportId.slice(2, 10)}.png`; anchor.click();
+      const anchor = document.createElement("a"); anchor.href = url; anchor.download = `provenancex-official-${passportId.slice(2, 10)}.png`; anchor.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
     });
   }
@@ -106,23 +106,23 @@ export default function Demo() {
           : await registerWithPublicDemoKey(registration);
         setSourceFile(asset.file); setHash(asset.hash); setId(result.passportId); setSigner({ mode, address: mode === "wallet" ? address! : result.signerAddress }); setSignedTool(registration.tool); setFileStatus("registered");
         await downloadPassportPng(asset.file, result.passportId);
-        setFeed((old) => [{ label: "Media record registered", tx: result.transactionHash, seconds: (Date.now() - started) / 1000 }, ...old]);
-        setStep(1); setStatus("Registration confirmed. Choose the downloaded registered PNG in step 2 to verify that copy.");
+        setFeed((old) => [{ label: "Official publication registered", tx: result.transactionHash, seconds: (Date.now() - started) / 1000 }, ...old]);
+        setStep(1); setStatus("Official release registration confirmed on Monad. Choose the downloaded PNG in step 2 to verify its authenticity.");
       }
       if (n === 2) {
         const candidate = chosenFile ?? downloadedFile;
-        if (!candidate || !id || !hash || candidate.type !== "image/png") throw new Error("Choose the PNG downloaded after step 1.");
+        if (!candidate || !id || !hash || candidate.type !== "image/png") throw new Error("Choose the official PNG downloaded after step 1.");
         const prepared = await prepareAsset(candidate);
         const metadata = readPassportMetadata(await readBoundedBlob(prepared.file));
         const configuredContract = String(deploymentInfo.address ?? "");
         if (!metadata || metadata.passportId.toLowerCase() !== id.toLowerCase() || metadata.chainId !== 10143 || !configuredContract || metadata.contract.toLowerCase() !== configuredContract.toLowerCase()) {
-          throw new Error("The selected PNG does not carry this registration’s expected testnet metadata.");
+          throw new Error("The selected PNG does not carry this official registration's expected testnet metadata.");
         }
         const selectedHash = await sha256Hex(prepared.file);
-        if (selectedHash.toLowerCase() !== hash.toLowerCase()) throw new Error("The selected PNG content differs from the registered asset.");
+        if (selectedHash.toLowerCase() !== hash.toLowerCase()) throw new Error("The selected PNG content differs from the registered official publication.");
         const found = await getPassportIdByContentHash(selectedHash);
-        if (found.toLowerCase() !== id.toLowerCase()) throw new Error("The live registry did not return the expected media record. No verification result was produced.");
-        setFileStatus("exact"); setStep(2); setStatus(`The selected registered PNG matches live registry record ${id.slice(0, 12)}… exactly.`);
+        if (found.toLowerCase() !== id.toLowerCase()) throw new Error("The live registry did not return the expected publication record.");
+        setFileStatus("exact"); setStep(2); setStatus(`Verification confirmed! The selected file matches registered official publication ${id.slice(0, 12)}… exactly.`);
       }
       if (n === 3) {
         if (!downloadedFile || !id) throw new Error("Complete step 2 first.");
@@ -137,28 +137,28 @@ export default function Demo() {
           pixels.data[index] = (pixels.data[index] + 37) % 256; context.putImageData(pixels, 0, 0);
           const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error("PNG encoding failed.")), "image/png"));
           assertByteLimit(blob.size, MAX_ASSET_BYTES, "Changed image");
-          changed = new File([blob], "tampered-demo.png", { type: "image/png" });
+          changed = new File([blob], "tampered-release.png", { type: "image/png" });
         } finally { bitmap.close(); }
         const changedHash = await sha256Hex(changed);
-        if ((await getPassportIdByContentHash(changedHash)).toLowerCase() !== emptyId) throw new Error("Unexpected exact match for the changed pixels.");
+        if ((await getPassportIdByContentHash(changedHash)).toLowerCase() !== emptyId) throw new Error("Unexpected exact match for the modified pixels.");
         const changedPrepared = await prepareAsset(changed);
         const matches = await findPerceptualMatches(changedPrepared.perceptualHash, { maxPages: 100 });
         const match = matches.find((entry) => entry.passportId.toLowerCase() === id.toLowerCase());
         if (!match) throw new Error("The live index did not return this media record as a perceptual match.");
-        setTamperedFile(changed); setFileStatus("perceptual"); setStep(3); setStatus(`One pixel changed; exact hash differs. Live dHash found media record ${id.slice(0, 12)}… at distance ${match.distance}.`);
+        setTamperedFile(changed); setFileStatus("perceptual"); setStep(3); setStatus(`Pixel alteration detected! Exact hash check flagged modifications, while perceptual dHash linked it back to official publication ${id.slice(0, 12)}… at distance ${match.distance}.`);
       }
       if (n === 4) {
-        if (!id || !hash || !signer) throw new Error("Complete the registration step first.");
-        const editHash = bytes32KeccakUtf8(`demo-derivative-edit:${hash}:${Date.now()}`);
+        if (!id || !hash || !signer) throw new Error("Complete official registration step first.");
+        const editHash = bytes32KeccakUtf8(`official-update-event:${hash}:${Date.now()}`);
         let result: { transactionHash: Hex };
         if (signer.mode === "demo-key") {
-          result = await appendWithPublicDemoKey(id, "DERIVATIVE_EDIT", editHash, signer.address);
+          result = await appendWithPublicDemoKey(id, "OFFICIAL_UPDATE", editHash, signer.address);
         } else {
-          if (!isConnected || !address || address.toLowerCase() !== signer.address.toLowerCase()) throw new Error("Reconnect the wallet used for registration before appending the derivative.");
-          result = await appendPassportEvent(id, "DERIVATIVE_EDIT", editHash);
+          if (!isConnected || !address || address.toLowerCase() !== signer.address.toLowerCase()) throw new Error("Reconnect the authorized publisher wallet before appending official updates.");
+          result = await appendPassportEvent(id, "OFFICIAL_UPDATE", editHash);
         }
-        setFeed((old) => [{ label: "Derivative event appended", tx: result.transactionHash, seconds: (Date.now() - started) / 1000 }, ...old]);
-        setStep(4); setStatus("A real derivative event was confirmed using the original registration signer.");
+        setFeed((old) => [{ label: "Official lineage event appended", tx: result.transactionHash, seconds: (Date.now() - started) / 1000 }, ...old]);
+        setStep(4); setStatus("An official lineage update event was confirmed using the authorized publisher wallet on Monad.");
       }
     } catch (error) { setErr(error instanceof Error ? error.message : "Demo action failed."); }
     finally { setBusy(false); }
@@ -169,5 +169,51 @@ export default function Demo() {
     if (input.current) input.current.value = "";
   }
 
-  return <PageFrame><div className="page-heading"><SectionLabel>MEDIA PROVENANCE / GUIDED DEMO</SectionLabel><h1>Check the file, <span className="purple">then the source.</span></h1><p>A real testnet workflow using bundled procedural artwork. It is declared synthetic by the signer; no model or detector is involved.</p></div><WalletNotice/>{id&&signer&&signedTool&&<MediaPolicySummary decision={demoDecisionForFileStatus(fileStatus)} signedTool={signedTool} creator={signer.address}/>}<div className="workspace"><section className="panel"><div className="panel-title"><h3>Walkthrough</h3><button className="small-button" onClick={reset} disabled={busy}>Reset demo</button></div>{steps.map(([title, desc], index) => <button key={title} className={`step-button ${step === index ? "current" : ""}`} onClick={() => index === 1 ? input.current?.click() : void run(index + 1)} disabled={busy || !deploymentInfo.address || (!isConnected && !demoKey) || (index > 0 && step < index)}><span className="n">{index + 1}</span><span>{title}<small>{desc}</small></span></button>)}<input ref={input} className="hidden-file" type="file" accept="image/png,.png" aria-label="Choose the downloaded registered PNG" onChange={(event) => { const chosen = event.currentTarget.files?.[0]; if (!chosen) return; setDownloadedFile(chosen); setTamperedFile(null); setFileStatus("unverified"); setErr(""); void run(2, chosen); }}/>{busy && <p role="status" className="muted" style={{ fontSize: 11 }}>Waiting for RPC and transaction confirmation…</p>}{status && <div className="success-box" style={{ marginTop: 13 }}>{status}</div>}{err && <div className="error-box" role="alert" style={{ marginTop: 13 }}>{err}</div>}<div className="divider"/>{shownFile && preview && <><Image className="asset-preview" src={preview} width={1200} height={900} unoptimized alt={tamperedFile ? "One-pixel changed sample artwork" : downloadedFile ? "Selected downloaded registered media preview" : "Registered sample artwork"}/><div className="meta-row"><span>{tamperedFile ? "Modified file" : downloadedFile ? "Selected PNG" : "Sample artwork"}</span><b>{shownFile.name}</b></div>{id && <Link className="button button-ghost" style={{ display: "inline-block", marginTop: 12 }} href={`/p/${id}`}>Open public media record ↗</Link>}</>}</section><aside className="panel"><SectionLabel>LIVE CHAIN ACTIVITY</SectionLabel><p className="muted" style={{ fontSize: 10, lineHeight: 1.6, marginTop: 11 }}>Confirmed receipts only · elapsed time is measured locally.</p>{feed.length ? feed.map((item, index) => <div key={`${item.tx}-${index}`} className="feed-item"><span>{item.label}<small style={{ display: "block", color: "#777", marginTop: 5 }}>{item.seconds.toFixed(1)} sec</small></span><a target="_blank" rel="noreferrer" href={`https://testnet.monadexplorer.com/tx/${item.tx}`}>Explorer ↗</a></div>) : <div className="dropzone" style={{ minHeight: 110 }}><span className="muted" style={{ fontSize: 10 }}>No transactions yet</span></div>}<div className="divider"/><div className="meta-row"><span>Network</span><b>Monad Testnet · 10143</b></div><div className="meta-row"><span>Registration signer</span><b>{signer ? `${signer.address.slice(0, 7)}… · ${signer.mode}` : "Not registered"}</b></div><a href="https://faucet.monad.xyz" target="_blank" rel="noreferrer" className="small-button" style={{ display: "inline-block", marginTop: 10 }}>Get test MON ↗</a><p className="muted" style={{ fontSize: 9, lineHeight: 1.6, marginTop: 12 }}>Reset clears this browser walkthrough only. It does not reset or remove on-chain records.</p></aside></div></PageFrame>;
+  return <PageFrame>
+    <div className="page-heading">
+      <SectionLabel>VERIFIED PUBLISHER DEMO</SectionLabel>
+      <h1>Verify the source, <span className="purple">step by step.</span></h1>
+      <p>A guided interactive walkthrough demonstrating official government media registration, citizen verification, edit detection, and immutable on-chain lineage on Monad.</p>
+    </div>
+    <WalletNotice/>
+    {id && signer && signedTool && <MediaPolicySummary decision={demoDecisionForFileStatus(fileStatus)} signedTool={signedTool} creator={signer.address}/>}
+    <div className="workspace">
+      <section className="panel">
+        <div className="panel-title">
+          <h3>Publisher & Citizen Walkthrough</h3>
+          <button className="small-button" onClick={reset} disabled={busy}>Reset demo</button>
+        </div>
+        {steps.map(([title, desc], index) => <button key={title} className={`step-button ${step === index ? "current" : ""}`} onClick={() => index === 1 ? input.current?.click() : void run(index + 1)} disabled={busy || !deploymentInfo.address || (!isConnected && !demoKey) || (index > 0 && step < index)}>
+          <span className="n">{index + 1}</span>
+          <span>{title}<small>{desc}</small></span>
+        </button>)}
+        <input ref={input} className="hidden-file" type="file" accept="image/png,.png" aria-label="Choose downloaded official release PNG" onChange={(event) => { const chosen = event.currentTarget.files?.[0]; if (!chosen) return; setDownloadedFile(chosen); setTamperedFile(null); setFileStatus("unverified"); setErr(""); void run(2, chosen); }}/>
+        {busy && <p role="status" className="muted" style={{ fontSize: 11 }}>Communicating with Monad Testnet smart contract…</p>}
+        {status && <div className="success-box" style={{ marginTop: 13 }}>{status}</div>}
+        {err && <div className="error-box" role="alert" style={{ marginTop: 13 }}>{err}</div>}
+        <div className="divider"/>
+        {shownFile && preview && <>
+          <Image className="asset-preview" src={preview} width={1200} height={900} unoptimized alt={tamperedFile ? "Modified official release image" : downloadedFile ? "Downloaded official release image" : "Registered official release image"}/>
+          <div className="meta-row">
+            <span>{tamperedFile ? "Modified file copy" : downloadedFile ? "Downloaded PNG release" : "Official registered image"}</span>
+            <b>{shownFile.name}</b>
+          </div>
+          {id && <Link className="button button-ghost" style={{ display: "inline-block", marginTop: 12 }} href={`/p/${id}`}>Open public media record on Monad ↗</Link>}
+        </>}
+      </section>
+
+      <aside className="panel">
+        <SectionLabel>MONAD TESTNET ACTIVITY</SectionLabel>
+        <p className="muted" style={{ fontSize: 10, lineHeight: 1.6, marginTop: 11 }}>Confirmed receipts · Monad sub-second finality.</p>
+        {feed.length ? feed.map((item, index) => <div key={`${item.tx}-${index}`} className="feed-item">
+          <span>{item.label}<small style={{ display: "block", color: "#777", marginTop: 5 }}>{item.seconds.toFixed(1)} sec</small></span>
+          <a target="_blank" rel="noreferrer" href={`https://testnet.monadexplorer.com/tx/${item.tx}`}>Explorer ↗</a>
+        </div>) : <div className="dropzone" style={{ minHeight: 110 }}><span className="muted" style={{ fontSize: 10 }}>No transactions yet</span></div>}
+        <div className="divider"/>
+        <div className="meta-row"><span>Network</span><b>Monad Testnet · 10143</b></div>
+        <div className="meta-row"><span>Publisher wallet</span><b>{signer ? `${signer.address.slice(0, 7)}… · ${signer.mode}` : "Not registered"}</b></div>
+        <a href="https://faucet.monad.xyz" target="_blank" rel="noreferrer" className="small-button" style={{ display: "inline-block", marginTop: 10 }}>Get test MON ↗</a>
+      </aside>
+    </div>
+  </PageFrame>;
 }

@@ -1,0 +1,7 @@
+{
+  "taskId": "1362818d6e0b3bb6c59dd001336a8702",
+  "model": "google/gemini-3-8-flash-lite-tts",
+  "voice": "Kira",
+  "temperature": 0.85,
+  "fingerprint": "8fb22bd3ee3124a11ea6983d2508240503e63bc8256fcd03568b47469953b561"
+}

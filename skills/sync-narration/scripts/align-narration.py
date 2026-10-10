@@ -17,6 +17,7 @@ import argparse
 import json
 import re
 import sys
+from difflib import SequenceMatcher
 from pathlib import Path
 
 
@@ -30,32 +31,63 @@ def split_script_sentences(text: str) -> list[str]:
     return [p.strip() for p in parts if p.strip()]
 
 
+def tokens_match(whisper_token: str, script_token: str) -> bool:
+    if not whisper_token or not script_token:
+        return False
+    if whisper_token == script_token:
+        return True
+    if whisper_token.isdigit() and whisper_token in script_token:
+        return True
+    if script_token.isdigit() and script_token in whisper_token:
+        return True
+    if min(len(whisper_token), len(script_token)) >= 4 and (
+        whisper_token in script_token or script_token in whisper_token
+    ):
+        return True
+    if min(len(whisper_token), len(script_token)) >= 6 and SequenceMatcher(
+        None, whisper_token, script_token
+    ).ratio() >= 0.72:
+        return True
+    return False
+
+
 def align_sentences_to_words(sentences: list[str], words: list[dict]) -> list[dict]:
-    """Greedy match script sentences to whisper word stream."""
+    """Match script sentences to the whisper word stream without swallowing later sentences."""
     wi = 0
     aligned = []
     for sentence in sentences:
         sent_tokens = [normalize_token(t) for t in sentence.split() if normalize_token(t)]
         if not sent_tokens:
             continue
-        start_idx = wi
+        start_idx = None
         matched = 0
-        while wi < len(words) and matched < len(sent_tokens):
-            wt = normalize_token(words[wi]["word"])
-            st = sent_tokens[matched]
+        cursor = wi
+        skips = 0
+        while cursor < len(words) and matched < len(sent_tokens):
+            wt = normalize_token(words[cursor]["word"])
             if not wt:
-                wi += 1
+                cursor += 1
                 continue
-            if wt == st or wt in st or st in wt:
+            if tokens_match(wt, sent_tokens[matched]):
+                if start_idx is None:
+                    start_idx = cursor
                 matched += 1
-                wi += 1
+                cursor += 1
+                skips = 0
                 continue
-            # whisper sometimes merges/splits — skip one word in stream
-            wi += 1
-        if matched == 0:
+            if start_idx is None:
+                cursor += 1
+                continue
+            if skips < 3:
+                skips += 1
+                cursor += 1
+                continue
+            break
+        if matched == 0 or start_idx is None:
             print(f"[align] warning: could not match sentence: {sentence[:60]}...", file=sys.stderr)
             continue
-        chunk = words[start_idx:wi]
+        chunk = words[start_idx:cursor]
+        wi = cursor
         aligned.append(
             {
                 "text": sentence,

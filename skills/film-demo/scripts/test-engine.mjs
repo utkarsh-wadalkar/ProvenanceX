@@ -111,6 +111,7 @@ async function main() {
   await settle(page, { timeout: 5000 })
   await click(page, timeline, page.locator('#a'), 'click-a-page2')
   await filmMove(page, timeline, 960, 540)
+  await wide(page, timeline, 'final-wide')
   await page.waitForTimeout(1200)
 
   timeline.dump(join(renderDir, 'timeline.json'))

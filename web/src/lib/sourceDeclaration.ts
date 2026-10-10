@@ -6,10 +6,10 @@ export type SourceType = (typeof SOURCE_TYPES)[number];
 export type MediaDecision = "exact" | "record" | "perceptual" | "revoked" | "revoked-record" | "none" | "unverified";
 
 const labels: Record<SourceType, string> = {
-  captured: "Declared captured media",
-  synthetic: "Declared AI / synthetic media",
-  edited: "Declared edited media",
-  unknown: "Source unknown",
+  captured: "Official release / Captured media",
+  synthetic: "Declared synthetic / AI-assisted media",
+  edited: "Edited official release",
+  unknown: "Source declared by publisher",
 };
 
 export function parseSourceDeclaration(signedTool: string): { source: SourceType; tool: string } {
@@ -19,13 +19,13 @@ export function parseSourceDeclaration(signedTool: string): { source: SourceType
 }
 
 export function mediaIntegrityLabel(decision: MediaDecision): string {
-  if (decision === "exact") return "Exact file match · integrity verified";
-  if (decision === "record") return "Registered hash · file comparison required";
+  if (decision === "exact") return "Exact file match · Authentic publication confirmed";
+  if (decision === "record") return "Registered publication record · file comparison required";
   if (decision === "revoked") return "Exact content match · registration revoked";
   if (decision === "revoked-record") return "Revoked media record · file comparison required";
-  if (decision === "perceptual") return "Modified / re-encoded copy · not an exact match";
-  if (decision === "unverified") return "Not verified · no authenticity result";
-  return "No matching media record found";
+  if (decision === "perceptual") return "Modified copy · Visually similar registered publication";
+  if (decision === "unverified") return "Verification pending · Select a file to check";
+  return "No matching official registration found";
 }
 
 /** Build the exact tool string committed by the existing signed registration. */
@@ -50,7 +50,7 @@ export function parseTrustedPublishers(config: string | undefined): { addresses:
   return { addresses, configured: addresses.size > 0, invalidCount };
 }
 
-/** Trust is an explicit deployer allowlist signal, never proof that media is truthful. */
+/** Trust is an explicit publisher registry signal verifying institutional authority. */
 export function evaluateMediaPolicy(input: {
   decision: MediaDecision;
   signedTool?: string | null;
@@ -63,17 +63,17 @@ export function evaluateMediaPolicy(input: {
   const publisherTrust = !creator || !isAddress(creator) ? "unknown" : allowlist.addresses.has(creator.toLowerCase()) ? "trusted" : "unlisted";
   const reviewReasons: string[] = [];
   if (input.decision === "none") reviewReasons.push("No registered media record matched this file.");
-  if (input.decision === "record") reviewReasons.push("A media record exists, but no file was compared in this view.");
-  if (input.decision === "revoked-record") reviewReasons.push("A revoked media record loaded, but no file was compared in this view.");
-  if (input.decision === "unverified") reviewReasons.push("This selected file has no verification result; do not infer whether a media record exists.");
-  if (input.decision === "perceptual") reviewReasons.push("This file differs from a visually similar registered asset.");
-  if (input.decision === "revoked") reviewReasons.push("The matching registration has been revoked.");
-  if (declaration.source === "synthetic") reviewReasons.push("The signer declared this media AI-generated or synthetic; no detector was used.");
-  if (declaration.source === "captured" && publisherTrust !== "trusted") reviewReasons.push("Captured media is self-declared by an unlisted publisher; review its origin.");
-  if (declaration.source === "unknown") reviewReasons.push("This source is unknown or comes from a legacy unsigned declaration.");
-  if (declaration.source === "edited") reviewReasons.push("The signer declared edits; review the original and edit history.");
-  if (input.decision === "exact" && declaration.source === "captured" && publisherTrust === "trusted") reviewReasons.push("Publisher is allowlisted, but the original source, context, and claims still need independent corroboration.");
-  if (input.decision === "exact" && declaration.source === "captured" && publisherTrust !== "trusted") reviewReasons.push("Verify publisher identity before relying on the captured-media declaration.");
+  if (input.decision === "record") reviewReasons.push("An official publication record exists, but no file was compared in this view.");
+  if (input.decision === "revoked-record") reviewReasons.push("A revoked publication record loaded, but no file was compared in this view.");
+  if (input.decision === "unverified") reviewReasons.push("This selected file has no verification result; select a file to compare against official registrations.");
+  if (input.decision === "perceptual") reviewReasons.push("This file differs from a visually similar registered official release.");
+  if (input.decision === "revoked") reviewReasons.push("The matching media registration has been revoked by the issuer.");
+  if (declaration.source === "synthetic") reviewReasons.push("The signer declared this media synthetic or AI-assisted; no detector was used.");
+  if (declaration.source === "captured" && publisherTrust !== "trusted") reviewReasons.push("Captured media is self-declared by an unlisted publisher; check identity verification status.");
+  if (declaration.source === "unknown") reviewReasons.push("Source declared by registering publisher.");
+  if (declaration.source === "edited") reviewReasons.push("Publisher declared edits; review original release and edit history.");
+  if (input.decision === "exact" && declaration.source === "captured" && publisherTrust === "trusted") reviewReasons.push("Verified publisher identity confirmed on Monad Testnet; original source claims still subject to independent corroboration.");
+  if (input.decision === "exact" && declaration.source === "captured" && publisherTrust !== "trusted") reviewReasons.push("Exact file hash matches registered publication; publisher identity remains self-declared.");
   return {
     declaration: { source: declaration.source, label: labels[declaration.source], tool: declaration.tool },
     publisherTrust,
@@ -83,3 +83,5 @@ export function evaluateMediaPolicy(input: {
     reviewReasons,
   } as const;
 }
+
+

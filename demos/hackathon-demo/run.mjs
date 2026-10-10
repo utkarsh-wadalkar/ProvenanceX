@@ -82,9 +82,9 @@ try {
   await hold(beat);
 
   beat=scene(1,'real-local-application');
-  await click(page,timeline,nav('Create'),'create-route',{expect:page.getByRole('heading',{name:'Give it a passport.'})});
+  await click(page,timeline,nav('Create'),'create-route',{expect:page.locator('#tool')});
   await click(page,timeline,page.getByRole('button',{name:'Planet No. 04'}),'prepare-bundled-artwork',{
-    expect:page.getByRole('img',{name:'Selected creative asset preview'})});
+    expect:page.locator('section.panel .dropzone img')});
   await hold(beat);
 
   beat=scene(2,'declare-and-fingerprint');
@@ -98,14 +98,14 @@ try {
 
   beat=scene(3,'signed-synthetic-registration');
   await wide(page,timeline,'registration-wide');
-  await click(page,timeline,nav('Demo'),'guided-demo-route',{expect:page.getByRole('heading',{name:'Check the file, then the source.'})});
+  await click(page,timeline,nav('Demo'),'guided-demo-route',{expect:page.getByRole('button',{name:'Register a real asset'})});
   const downloadPromise=page.waitForEvent('download');
   await click(page,timeline,page.getByRole('button',{name:'Register a real asset'}),'register-real-local-transaction',{
     expect:page.getByText('Registration confirmed.',{exact:false})});
   const download=await downloadPromise;
   const saved=join(renderDir,'registered-passport.png');
   await download.saveAs(saved);
-  const link=page.getByRole('link',{name:'Open public passport'});
+  const link=page.locator('section.panel a[href^="/p/"]');
   const passportId=(await link.getAttribute('href')).split('/').at(-1);
   // The app already supports local sessionStorage previews (Create uses it).
   // Supply actual downloaded bytes, never an invented image or registry field.
@@ -136,7 +136,7 @@ try {
   await click(page,timeline,page.getByRole('button',{name:'Append the derivative'}),'append-real-local-event',{
     expect:page.getByText('A real derivative event was confirmed',{exact:false})});
   await scroll(page,timeline,510,'reveal-public-passport-link',{steps:14,stepMs:35});
-  await click(page,timeline,link,'open-public-passport',{expect:page.getByRole('heading',{name:'Asset passport.'})});
+  await click(page,timeline,link,'open-public-passport',{expect:page.locator('.trail-proof'),expectTimeout:15000});
   await page.getByText('Complete trail verified against on-chain head',{exact:false}).waitFor();
   const proof=page.locator('.trail-proof');
   await scrollTo(proof,300,'reveal-hash-chain-history');
@@ -168,6 +168,12 @@ try {
   console.log(`Silent master: ${join(dir,'no-sound.mp4')}`);
   console.log(`Capture ${capture.capturedFps}fps; verification pass: ${review.pass}`);
   if(!review.pass)throw Error('Film verification failed; inspect review/report before delivering.');
+} catch(error) {
+  if(page&&!page.isClosed()){
+    await page.screenshot({path:join(renderDir,'failure.png')}).catch(()=>{});
+    writeFileSync(join(renderDir,'failure.txt'),`${error.message}\nURL: ${page.url()}\n`);
+  }
+  throw error;
 } finally {
   if(recorder&&context&&page)await finishFilmRecording(context,page,renderDir,recorder).catch(()=>{});
   await browser.close().catch(()=>{});

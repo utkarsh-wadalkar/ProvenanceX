@@ -9,7 +9,7 @@
   "camera": {"padding": 0.18, "maxZoom": 1.6, "transitionSec": 0.72},
   "speedup": {"toolWaitMax": 2, "preToolWaitMax": 2, "idleGapMin": 9999, "idleGapMax": 3},
   "frame": {"preset": "studio-dark", "canvasWidth": 1920, "canvasHeight": 1080, "wallpaper": null, "radius": 0, "titlebarHeight": 0},
-  "narration": {"provider": "kie", "voiceName": "Rachel", "modelId": "elevenlabs/text-to-speech-turbo-2-5", "stability": 0.5, "apiKeyEnv": "KIE_API_KEY"},
+  "narration": {"provider": "kie", "voiceName": "Kira", "modelId": "google/gemini-3-8-flash-lite-tts", "temperature": 0.85, "apiKeyEnv": "KIE_API_KEY"},
   "captions": {"enabled": true, "maxCharsPerLine": 46},
   "output": {"dir": "demos"}
 }

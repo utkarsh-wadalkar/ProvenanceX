@@ -1,0 +1,1371 @@
+{
+  "duration": 58.04,
+  "words": [
+    {
+      "word": "Media",
+      "start": 0.0,
+      "end": 0.48
+    },
+    {
+      "word": "gets",
+      "start": 0.48,
+      "end": 0.78
+    },
+    {
+      "word": "shared",
+      "start": 0.78,
+      "end": 1.04
+    },
+    {
+      "word": "faster",
+      "start": 1.04,
+      "end": 1.54
+    },
+    {
+      "word": "than",
+      "start": 1.54,
+      "end": 1.88
+    },
+    {
+      "word": "its",
+      "start": 1.88,
+      "end": 2.04
+    },
+    {
+      "word": "source.",
+      "start": 2.04,
+      "end": 2.26
+    },
+    {
+      "word": "Providence",
+      "start": 2.8,
+      "end": 3.2
+    },
+    {
+      "word": "X",
+      "start": 3.2,
+      "end": 3.44
+    },
+    {
+      "word": "gives",
+      "start": 3.44,
+      "end": 3.76
+    },
+    {
+      "word": "each",
+      "start": 3.76,
+      "end": 4.16
+    },
+    {
+      "word": "file",
+      "start": 4.16,
+      "end": 4.5
+    },
+    {
+      "word": "assigned",
+      "start": 4.5,
+      "end": 5.18
+    },
+    {
+      "word": "media",
+      "start": 5.18,
+      "end": 5.74
+    },
+    {
+      "word": "passport.",
+      "start": 5.74,
+      "end": 6.22
+    },
+    {
+      "word": "This",
+      "start": 6.9,
+      "end": 7.22
+    },
+    {
+      "word": "is",
+      "start": 7.22,
+      "end": 7.52
+    },
+    {
+      "word": "the",
+      "start": 7.52,
+      "end": 7.68
+    },
+    {
+      "word": "real",
+      "start": 7.68,
+      "end": 7.88
+    },
+    {
+      "word": "application",
+      "start": 7.88,
+      "end": 8.4
+    },
+    {
+      "word": "running",
+      "start": 8.4,
+      "end": 8.92
+    },
+    {
+      "word": "on",
+      "start": 8.92,
+      "end": 9.24
+    },
+    {
+      "word": "a",
+      "start": 9.24,
+      "end": 9.34
+    },
+    {
+      "word": "local",
+      "start": 9.34,
+      "end": 9.64
+    },
+    {
+      "word": "EVM",
+      "start": 9.64,
+      "end": 10.2
+    },
+    {
+      "word": "with",
+      "start": 10.2,
+      "end": 10.4
+    },
+    {
+      "word": "the",
+      "start": 10.4,
+      "end": 10.56
+    },
+    {
+      "word": "Monad",
+      "start": 10.56,
+      "end": 10.9
+    },
+    {
+      "word": "contract.",
+      "start": 10.9,
+      "end": 11.34
+    },
+    {
+      "word": "Choose",
+      "start": 11.96,
+      "end": 12.24
+    },
+    {
+      "word": "a",
+      "start": 12.24,
+      "end": 12.4
+    },
+    {
+      "word": "file,",
+      "start": 12.4,
+      "end": 12.68
+    },
+    {
+      "word": "declare",
+      "start": 13.1,
+      "end": 13.36
+    },
+    {
+      "word": "its",
+      "start": 13.36,
+      "end": 13.58
+    },
+    {
+      "word": "source,",
+      "start": 13.58,
+      "end": 13.84
+    },
+    {
+      "word": "and",
+      "start": 14.16,
+      "end": 14.26
+    },
+    {
+      "word": "fingerprint",
+      "start": 14.26,
+      "end": 14.74
+    },
+    {
+      "word": "it",
+      "start": 14.74,
+      "end": 15.16
+    },
+    {
+      "word": "in",
+      "start": 15.16,
+      "end": 15.36
+    },
+    {
+      "word": "the",
+      "start": 15.36,
+      "end": 15.46
+    },
+    {
+      "word": "browser.",
+      "start": 15.46,
+      "end": 15.72
+    },
+    {
+      "word": "Here,",
+      "start": 16.36,
+      "end": 16.64
+    },
+    {
+      "word": "procedural",
+      "start": 16.86,
+      "end": 17.3
+    },
+    {
+      "word": "artwork",
+      "start": 17.3,
+      "end": 17.62
+    },
+    {
+      "word": "is",
+      "start": 17.62,
+      "end": 17.98
+    },
+    {
+      "word": "registered",
+      "start": 17.98,
+      "end": 18.4
+    },
+    {
+      "word": "as",
+      "start": 18.4,
+      "end": 18.7
+    },
+    {
+      "word": "synthetic.",
+      "start": 18.7,
+      "end": 19.1
+    },
+    {
+      "word": "That",
+      "start": 19.78,
+      "end": 20.06
+    },
+    {
+      "word": "declaration",
+      "start": 20.06,
+      "end": 20.46
+    },
+    {
+      "word": "is",
+      "start": 20.46,
+      "end": 20.88
+    },
+    {
+      "word": "signed,",
+      "start": 20.88,
+      "end": 21.3
+    },
+    {
+      "word": "not",
+      "start": 21.56,
+      "end": 21.7
+    },
+    {
+      "word": "guessed",
+      "start": 21.7,
+      "end": 22.02
+    },
+    {
+      "word": "by",
+      "start": 22.02,
+      "end": 22.28
+    },
+    {
+      "word": "an",
+      "start": 22.28,
+      "end": 22.46
+    },
+    {
+      "word": "AI",
+      "start": 22.46,
+      "end": 22.7
+    },
+    {
+      "word": "detector.",
+      "start": 22.7,
+      "end": 23.16
+    },
+    {
+      "word": "Download",
+      "start": 23.86,
+      "end": 24.22
+    },
+    {
+      "word": "the",
+      "start": 24.22,
+      "end": 24.44
+    },
+    {
+      "word": "passport",
+      "start": 24.44,
+      "end": 24.72
+    },
+    {
+      "word": "PNG,",
+      "start": 24.72,
+      "end": 25.22
+    },
+    {
+      "word": "then",
+      "start": 25.56,
+      "end": 25.92
+    },
+    {
+      "word": "check",
+      "start": 25.92,
+      "end": 26.2
+    },
+    {
+      "word": "that",
+      "start": 26.2,
+      "end": 26.46
+    },
+    {
+      "word": "same",
+      "start": 26.46,
+      "end": 26.7
+    },
+    {
+      "word": "file.",
+      "start": 26.7,
+      "end": 27.0
+    },
+    {
+      "word": "It's",
+      "start": 27.42,
+      "end": 27.78
+    },
+    {
+      "word": "canonical",
+      "start": 27.78,
+      "end": 28.16
+    },
+    {
+      "word": "Shaw",
+      "start": 28.16,
+      "end": 28.7
+    },
+    {
+      "word": "256",
+      "start": 28.7,
+      "end": 29.12
+    },
+    {
+      "word": "hash",
+      "start": 29.12,
+      "end": 29.72
+    },
+    {
+      "word": "matches",
+      "start": 29.72,
+      "end": 30.42
+    },
+    {
+      "word": "the",
+      "start": 30.42,
+      "end": 30.68
+    },
+    {
+      "word": "live",
+      "start": 30.68,
+      "end": 30.86
+    },
+    {
+      "word": "registry,",
+      "start": 30.86,
+      "end": 31.38
+    },
+    {
+      "word": "while",
+      "start": 31.6,
+      "end": 32.0
+    },
+    {
+      "word": "embedded",
+      "start": 32.0,
+      "end": 32.56
+    },
+    {
+      "word": "metadata",
+      "start": 32.56,
+      "end": 32.98
+    },
+    {
+      "word": "is",
+      "start": 32.98,
+      "end": 33.34
+    },
+    {
+      "word": "treated",
+      "start": 33.34,
+      "end": 33.64
+    },
+    {
+      "word": "only",
+      "start": 33.64,
+      "end": 34.16
+    },
+    {
+      "word": "as",
+      "start": 34.16,
+      "end": 34.44
+    },
+    {
+      "word": "a",
+      "start": 34.44,
+      "end": 34.54
+    },
+    {
+      "word": "hint.",
+      "start": 34.54,
+      "end": 34.76
+    },
+    {
+      "word": "Now,",
+      "start": 35.46,
+      "end": 35.68
+    },
+    {
+      "word": "change",
+      "start": 36.02,
+      "end": 36.22
+    },
+    {
+      "word": "one",
+      "start": 36.22,
+      "end": 36.52
+    },
+    {
+      "word": "pixel.",
+      "start": 36.52,
+      "end": 36.82
+    },
+    {
+      "word": "Exact",
+      "start": 37.4,
+      "end": 37.7
+    },
+    {
+      "word": "identity",
+      "start": 37.7,
+      "end": 38.24
+    },
+    {
+      "word": "fails.",
+      "start": 38.24,
+      "end": 38.58
+    },
+    {
+      "word": "Image",
+      "start": 39.22,
+      "end": 39.42
+    },
+    {
+      "word": "similarity",
+      "start": 39.42,
+      "end": 39.96
+    },
+    {
+      "word": "finds",
+      "start": 39.96,
+      "end": 40.32
+    },
+    {
+      "word": "the",
+      "start": 40.32,
+      "end": 40.58
+    },
+    {
+      "word": "original",
+      "start": 40.58,
+      "end": 40.94
+    },
+    {
+      "word": "as",
+      "start": 40.94,
+      "end": 41.24
+    },
+    {
+      "word": "a",
+      "start": 41.24,
+      "end": 41.4
+    },
+    {
+      "word": "candidate",
+      "start": 41.4,
+      "end": 41.9
+    },
+    {
+      "word": "not",
+      "start": 41.9,
+      "end": 42.44
+    },
+    {
+      "word": "proof.",
+      "start": 42.44,
+      "end": 42.78
+    },
+    {
+      "word": "Append",
+      "start": 43.64,
+      "end": 43.96
+    },
+    {
+      "word": "an",
+      "start": 43.96,
+      "end": 44.18
+    },
+    {
+      "word": "edit",
+      "start": 44.18,
+      "end": 44.42
+    },
+    {
+      "word": "event",
+      "start": 44.42,
+      "end": 44.7
+    },
+    {
+      "word": "and",
+      "start": 44.7,
+      "end": 45.1
+    },
+    {
+      "word": "open",
+      "start": 45.1,
+      "end": 45.5
+    },
+    {
+      "word": "the",
+      "start": 45.5,
+      "end": 45.68
+    },
+    {
+      "word": "public",
+      "start": 45.68,
+      "end": 45.94
+    },
+    {
+      "word": "passport.",
+      "start": 45.94,
+      "end": 46.32
+    },
+    {
+      "word": "The",
+      "start": 46.78,
+      "end": 47.04
+    },
+    {
+      "word": "browser",
+      "start": 47.04,
+      "end": 47.32
+    },
+    {
+      "word": "verifies",
+      "start": 47.32,
+      "end": 47.9
+    },
+    {
+      "word": "the",
+      "start": 47.9,
+      "end": 48.2
+    },
+    {
+      "word": "complete",
+      "start": 48.2,
+      "end": 48.58
+    },
+    {
+      "word": "hash",
+      "start": 48.58,
+      "end": 48.94
+    },
+    {
+      "word": "chain",
+      "start": 48.94,
+      "end": 49.2
+    },
+    {
+      "word": "against",
+      "start": 49.2,
+      "end": 49.56
+    },
+    {
+      "word": "the",
+      "start": 49.56,
+      "end": 49.78
+    },
+    {
+      "word": "contract's",
+      "start": 49.78,
+      "end": 50.44
+    },
+    {
+      "word": "stored",
+      "start": 50.44,
+      "end": 50.74
+    },
+    {
+      "word": "head.",
+      "start": 50.74,
+      "end": 51.14
+    },
+    {
+      "word": "File",
+      "start": 52.04,
+      "end": 52.32
+    },
+    {
+      "word": "identity,",
+      "start": 52.32,
+      "end": 52.74
+    },
+    {
+      "word": "source",
+      "start": 53.1,
+      "end": 53.3
+    },
+    {
+      "word": "claims,",
+      "start": 53.3,
+      "end": 53.58
+    },
+    {
+      "word": "and",
+      "start": 53.88,
+      "end": 53.96
+    },
+    {
+      "word": "context",
+      "start": 53.96,
+      "end": 54.42
+    },
+    {
+      "word": "stay",
+      "start": 54.42,
+      "end": 54.9
+    },
+    {
+      "word": "separate.",
+      "start": 54.9,
+      "end": 55.4
+    },
+    {
+      "word": "So,",
+      "start": 55.4,
+      "end": 55.96
+    },
+    {
+      "word": "people",
+      "start": 56.08,
+      "end": 56.3
+    },
+    {
+      "word": "can",
+      "start": 56.3,
+      "end": 56.48
+    },
+    {
+      "word": "review",
+      "start": 56.48,
+      "end": 56.8
+    },
+    {
+      "word": "before",
+      "start": 56.8,
+      "end": 57.18
+    },
+    {
+      "word": "sharing.",
+      "start": 57.18,
+      "end": 57.56
+    }
+  ],
+  "sentences": [
+    {
+      "text": "Media gets shared faster than its source.",
+      "start": 0.0,
+      "end": 2.26,
+      "words": [
+        {
+          "word": "Media",
+          "start": 0.0,
+          "end": 0.48
+        },
+        {
+          "word": "gets",
+          "start": 0.48,
+          "end": 0.78
+        },
+        {
+          "word": "shared",
+          "start": 0.78,
+          "end": 1.04
+        },
+        {
+          "word": "faster",
+          "start": 1.04,
+          "end": 1.54
+        },
+        {
+          "word": "than",
+          "start": 1.54,
+          "end": 1.88
+        },
+        {
+          "word": "its",
+          "start": 1.88,
+          "end": 2.04
+        },
+        {
+          "word": "source.",
+          "start": 2.04,
+          "end": 2.26
+        }
+      ]
+    },
+    {
+      "text": "ProvenanceX gives each file a signed media passport.",
+      "start": 2.8,
+      "end": 6.22,
+      "words": [
+        {
+          "word": "Providence",
+          "start": 2.8,
+          "end": 3.2
+        },
+        {
+          "word": "X",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "word": "gives",
+          "start": 3.44,
+          "end": 3.76
+        },
+        {
+          "word": "each",
+          "start": 3.76,
+          "end": 4.16
+        },
+        {
+          "word": "file",
+          "start": 4.16,
+          "end": 4.5
+        },
+        {
+          "word": "assigned",
+          "start": 4.5,
+          "end": 5.18
+        },
+        {
+          "word": "media",
+          "start": 5.18,
+          "end": 5.74
+        },
+        {
+          "word": "passport.",
+          "start": 5.74,
+          "end": 6.22
+        }
+      ]
+    },
+    {
+      "text": "This is the real application, running on a local EVM with the Monad contract.",
+      "start": 6.9,
+      "end": 11.34,
+      "words": [
+        {
+          "word": "This",
+          "start": 6.9,
+          "end": 7.22
+        },
+        {
+          "word": "is",
+          "start": 7.22,
+          "end": 7.52
+        },
+        {
+          "word": "the",
+          "start": 7.52,
+          "end": 7.68
+        },
+        {
+          "word": "real",
+          "start": 7.68,
+          "end": 7.88
+        },
+        {
+          "word": "application",
+          "start": 7.88,
+          "end": 8.4
+        },
+        {
+          "word": "running",
+          "start": 8.4,
+          "end": 8.92
+        },
+        {
+          "word": "on",
+          "start": 8.92,
+          "end": 9.24
+        },
+        {
+          "word": "a",
+          "start": 9.24,
+          "end": 9.34
+        },
+        {
+          "word": "local",
+          "start": 9.34,
+          "end": 9.64
+        },
+        {
+          "word": "EVM",
+          "start": 9.64,
+          "end": 10.2
+        },
+        {
+          "word": "with",
+          "start": 10.2,
+          "end": 10.4
+        },
+        {
+          "word": "the",
+          "start": 10.4,
+          "end": 10.56
+        },
+        {
+          "word": "Monad",
+          "start": 10.56,
+          "end": 10.9
+        },
+        {
+          "word": "contract.",
+          "start": 10.9,
+          "end": 11.34
+        }
+      ]
+    },
+    {
+      "text": "Choose a file, declare its source, and fingerprint it in the browser.",
+      "start": 11.96,
+      "end": 15.72,
+      "words": [
+        {
+          "word": "Choose",
+          "start": 11.96,
+          "end": 12.24
+        },
+        {
+          "word": "a",
+          "start": 12.24,
+          "end": 12.4
+        },
+        {
+          "word": "file,",
+          "start": 12.4,
+          "end": 12.68
+        },
+        {
+          "word": "declare",
+          "start": 13.1,
+          "end": 13.36
+        },
+        {
+          "word": "its",
+          "start": 13.36,
+          "end": 13.58
+        },
+        {
+          "word": "source,",
+          "start": 13.58,
+          "end": 13.84
+        },
+        {
+          "word": "and",
+          "start": 14.16,
+          "end": 14.26
+        },
+        {
+          "word": "fingerprint",
+          "start": 14.26,
+          "end": 14.74
+        },
+        {
+          "word": "it",
+          "start": 14.74,
+          "end": 15.16
+        },
+        {
+          "word": "in",
+          "start": 15.16,
+          "end": 15.36
+        },
+        {
+          "word": "the",
+          "start": 15.36,
+          "end": 15.46
+        },
+        {
+          "word": "browser.",
+          "start": 15.46,
+          "end": 15.72
+        }
+      ]
+    },
+    {
+      "text": "Here, procedural artwork is registered as synthetic.",
+      "start": 16.36,
+      "end": 19.1,
+      "words": [
+        {
+          "word": "Here,",
+          "start": 16.36,
+          "end": 16.64
+        },
+        {
+          "word": "procedural",
+          "start": 16.86,
+          "end": 17.3
+        },
+        {
+          "word": "artwork",
+          "start": 17.3,
+          "end": 17.62
+        },
+        {
+          "word": "is",
+          "start": 17.62,
+          "end": 17.98
+        },
+        {
+          "word": "registered",
+          "start": 17.98,
+          "end": 18.4
+        },
+        {
+          "word": "as",
+          "start": 18.4,
+          "end": 18.7
+        },
+        {
+          "word": "synthetic.",
+          "start": 18.7,
+          "end": 19.1
+        }
+      ]
+    },
+    {
+      "text": "That declaration is signed, not guessed by an AI detector.",
+      "start": 19.78,
+      "end": 23.16,
+      "words": [
+        {
+          "word": "That",
+          "start": 19.78,
+          "end": 20.06
+        },
+        {
+          "word": "declaration",
+          "start": 20.06,
+          "end": 20.46
+        },
+        {
+          "word": "is",
+          "start": 20.46,
+          "end": 20.88
+        },
+        {
+          "word": "signed,",
+          "start": 20.88,
+          "end": 21.3
+        },
+        {
+          "word": "not",
+          "start": 21.56,
+          "end": 21.7
+        },
+        {
+          "word": "guessed",
+          "start": 21.7,
+          "end": 22.02
+        },
+        {
+          "word": "by",
+          "start": 22.02,
+          "end": 22.28
+        },
+        {
+          "word": "an",
+          "start": 22.28,
+          "end": 22.46
+        },
+        {
+          "word": "AI",
+          "start": 22.46,
+          "end": 22.7
+        },
+        {
+          "word": "detector.",
+          "start": 22.7,
+          "end": 23.16
+        }
+      ]
+    },
+    {
+      "text": "Download the passport PNG, then check that same file.",
+      "start": 23.86,
+      "end": 27.0,
+      "words": [
+        {
+          "word": "Download",
+          "start": 23.86,
+          "end": 24.22
+        },
+        {
+          "word": "the",
+          "start": 24.22,
+          "end": 24.44
+        },
+        {
+          "word": "passport",
+          "start": 24.44,
+          "end": 24.72
+        },
+        {
+          "word": "PNG,",
+          "start": 24.72,
+          "end": 25.22
+        },
+        {
+          "word": "then",
+          "start": 25.56,
+          "end": 25.92
+        },
+        {
+          "word": "check",
+          "start": 25.92,
+          "end": 26.2
+        },
+        {
+          "word": "that",
+          "start": 26.2,
+          "end": 26.46
+        },
+        {
+          "word": "same",
+          "start": 26.46,
+          "end": 26.7
+        },
+        {
+          "word": "file.",
+          "start": 26.7,
+          "end": 27.0
+        }
+      ]
+    },
+    {
+      "text": "Now change one pixel.",
+      "start": 35.46,
+      "end": 36.82,
+      "words": [
+        {
+          "word": "Now,",
+          "start": 35.46,
+          "end": 35.68
+        },
+        {
+          "word": "change",
+          "start": 36.02,
+          "end": 36.22
+        },
+        {
+          "word": "one",
+          "start": 36.22,
+          "end": 36.52
+        },
+        {
+          "word": "pixel.",
+          "start": 36.52,
+          "end": 36.82
+        }
+      ]
+    },
+    {
+      "text": "Exact identity fails; image similarity finds the original as a candidate, not proof.",
+      "start": 37.4,
+      "end": 42.78,
+      "words": [
+        {
+          "word": "Exact",
+          "start": 37.4,
+          "end": 37.7
+        },
+        {
+          "word": "identity",
+          "start": 37.7,
+          "end": 38.24
+        },
+        {
+          "word": "fails.",
+          "start": 38.24,
+          "end": 38.58
+        },
+        {
+          "word": "Image",
+          "start": 39.22,
+          "end": 39.42
+        },
+        {
+          "word": "similarity",
+          "start": 39.42,
+          "end": 39.96
+        },
+        {
+          "word": "finds",
+          "start": 39.96,
+          "end": 40.32
+        },
+        {
+          "word": "the",
+          "start": 40.32,
+          "end": 40.58
+        },
+        {
+          "word": "original",
+          "start": 40.58,
+          "end": 40.94
+        },
+        {
+          "word": "as",
+          "start": 40.94,
+          "end": 41.24
+        },
+        {
+          "word": "a",
+          "start": 41.24,
+          "end": 41.4
+        },
+        {
+          "word": "candidate",
+          "start": 41.4,
+          "end": 41.9
+        },
+        {
+          "word": "not",
+          "start": 41.9,
+          "end": 42.44
+        },
+        {
+          "word": "proof.",
+          "start": 42.44,
+          "end": 42.78
+        }
+      ]
+    },
+    {
+      "text": "Append an edit event and open the public passport.",
+      "start": 43.64,
+      "end": 46.32,
+      "words": [
+        {
+          "word": "Append",
+          "start": 43.64,
+          "end": 43.96
+        },
+        {
+          "word": "an",
+          "start": 43.96,
+          "end": 44.18
+        },
+        {
+          "word": "edit",
+          "start": 44.18,
+          "end": 44.42
+        },
+        {
+          "word": "event",
+          "start": 44.42,
+          "end": 44.7
+        },
+        {
+          "word": "and",
+          "start": 44.7,
+          "end": 45.1
+        },
+        {
+          "word": "open",
+          "start": 45.1,
+          "end": 45.5
+        },
+        {
+          "word": "the",
+          "start": 45.5,
+          "end": 45.68
+        },
+        {
+          "word": "public",
+          "start": 45.68,
+          "end": 45.94
+        },
+        {
+          "word": "passport.",
+          "start": 45.94,
+          "end": 46.32
+        }
+      ]
+    },
+    {
+      "text": "The browser verifies the complete hash chain against the contract's stored head.",
+      "start": 46.78,
+      "end": 51.14,
+      "words": [
+        {
+          "word": "The",
+          "start": 46.78,
+          "end": 47.04
+        },
+        {
+          "word": "browser",
+          "start": 47.04,
+          "end": 47.32
+        },
+        {
+          "word": "verifies",
+          "start": 47.32,
+          "end": 47.9
+        },
+        {
+          "word": "the",
+          "start": 47.9,
+          "end": 48.2
+        },
+        {
+          "word": "complete",
+          "start": 48.2,
+          "end": 48.58
+        },
+        {
+          "word": "hash",
+          "start": 48.58,
+          "end": 48.94
+        },
+        {
+          "word": "chain",
+          "start": 48.94,
+          "end": 49.2
+        },
+        {
+          "word": "against",
+          "start": 49.2,
+          "end": 49.56
+        },
+        {
+          "word": "the",
+          "start": 49.56,
+          "end": 49.78
+        },
+        {
+          "word": "contract's",
+          "start": 49.78,
+          "end": 50.44
+        },
+        {
+          "word": "stored",
+          "start": 50.44,
+          "end": 50.74
+        },
+        {
+          "word": "head.",
+          "start": 50.74,
+          "end": 51.14
+        }
+      ]
+    },
+    {
+      "text": "File identity, source claims, and context stay separate, so people can review before sharing.",
+      "start": 52.04,
+      "end": 57.56,
+      "words": [
+        {
+          "word": "File",
+          "start": 52.04,
+          "end": 52.32
+        },
+        {
+          "word": "identity,",
+          "start": 52.32,
+          "end": 52.74
+        },
+        {
+          "word": "source",
+          "start": 53.1,
+          "end": 53.3
+        },
+        {
+          "word": "claims,",
+          "start": 53.3,
+          "end": 53.58
+        },
+        {
+          "word": "and",
+          "start": 53.88,
+          "end": 53.96
+        },
+        {
+          "word": "context",
+          "start": 53.96,
+          "end": 54.42
+        },
+        {
+          "word": "stay",
+          "start": 54.42,
+          "end": 54.9
+        },
+        {
+          "word": "separate.",
+          "start": 54.9,
+          "end": 55.4
+        },
+        {
+          "word": "So,",
+          "start": 55.4,
+          "end": 55.96
+        },
+        {
+          "word": "people",
+          "start": 56.08,
+          "end": 56.3
+        },
+        {
+          "word": "can",
+          "start": 56.3,
+          "end": 56.48
+        },
+        {
+          "word": "review",
+          "start": 56.48,
+          "end": 56.8
+        },
+        {
+          "word": "before",
+          "start": 56.8,
+          "end": 57.18
+        },
+        {
+          "word": "sharing.",
+          "start": 57.18,
+          "end": 57.56
+        }
+      ]
+    }
+  ]
+}

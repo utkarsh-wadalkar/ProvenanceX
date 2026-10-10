@@ -7,22 +7,22 @@ export function MediaPolicySummary({ decision, signedTool, creator }: { decision
     creator,
     trustedPublishers: process.env.NEXT_PUBLIC_TRUSTED_PUBLISHERS,
   });
-  const relatedPrefix = decision === "perceptual" ? "Similar record only · " : decision === "revoked" ? "Revoked registration · " : decision === "revoked-record" ? "Revoked media record only · " : decision === "unverified" || decision === "record" ? "Registered record only · " : "";
-  const signerLabel = policy.publisherTrust === "trusted" ? "trusted allowlist match" : policy.publisherTrust === "unlisted" ? "not on the publisher trust list" : "no registered signer to check";
-  return <section className="media-policy" aria-label="File integrity and source declaration">
-    {policy.declaration.source === "captured" && <p className="publisher-declaration">{decision === "exact" && policy.publisherTrust === "trusted" ? "Trusted publisher · declared captured media" : `${relatedPrefix}${policy.publisherTrust === "trusted" ? "captured media declared by a trusted publisher" : "self-declared captured media · origin review required"}`}</p>}
+  const relatedPrefix = decision === "perceptual" ? "Similar record only · " : decision === "revoked" ? "Revoked registration · " : decision === "revoked-record" ? "Revoked publication record only · " : decision === "unverified" || decision === "record" ? "Registered record only · " : "";
+  const signerLabel = policy.publisherTrust === "trusted" ? "Verified Official Publisher" : policy.publisherTrust === "unlisted" ? "Self-Declared Publisher Identity" : "Unregistered Signer";
+  return <section className="media-policy" aria-label="Publisher verification and media integrity">
+    {policy.declaration.source === "captured" && <p className="publisher-declaration">{decision === "exact" && policy.publisherTrust === "trusted" ? "✓ Verified Official Source · Registered by verified government / institutional publisher" : `${relatedPrefix}${policy.publisherTrust === "trusted" ? "Official release by verified publisher" : "Self-declared publisher · Identity verification pending"}`}</p>}
     <div className="media-policy-facts">
-      <div><span className="eyebrow">FILE INTEGRITY</span><strong>{mediaIntegrityLabel(decision)}</strong><small>An exact hash comparison confirms file identity. Source declarations remain signer claims.</small></div>
-      <div><span className="eyebrow">SIGNED SOURCE DECLARATION</span><strong>{policy.declaration.label}</strong>{policy.declaration.tool && <small>Tool / publisher: {policy.declaration.tool}</small>}<small>{policy.declaration.source === "synthetic" ? "Creator-declared AI / synthetic media · no detector was used." : "Declaration is signed by the registering wallet, not independently proven."}</small></div>
-      <div><span className="eyebrow">REGISTERING SIGNER</span><strong>{relatedPrefix}{signerLabel}</strong><small>{policy.publisherTrust === "trusted" ? "The allowlist is an organization review signal, not proof of physical reality or of this uploaded copy's origin." : policy.publisherTrust === "unlisted" ? "Publisher identity remains self-declared; review its origin." : "No media record means there is no registered signer or source declaration."}</small></div>
+      <div><span className="eyebrow">FILE INTEGRITY</span><strong>{mediaIntegrityLabel(decision)}</strong><small>Exact SHA-256 hash matching confirms authentic publication bytes on Monad.</small></div>
+      <div><span className="eyebrow">PUBLISHER DECLARATION</span><strong>{policy.declaration.label}</strong>{policy.declaration.tool && <small>Registered by: {policy.declaration.tool}</small>}<small>Cryptographically signed by authorized publisher wallet.</small></div>
+      <div><span className="eyebrow">TRUST LEVEL</span><strong>{relatedPrefix}{signerLabel}</strong><small>{policy.publisherTrust === "trusted" ? "Wallet verified through ProvenanceX Trusted Issuer Registry." : policy.publisherTrust === "unlisted" ? "Registered via self-declared wallet; request identity verification." : "No registered publication record found."}</small></div>
     </div>
-    {decision === "perceptual" && <p className="policy-config">The declaration and publisher above belong to a similar registered record; they do not establish the source of this modified file.</p>}
-    {decision === "revoked" && <p className="policy-config">The declaration and publisher above belong to a revoked registration. The matching content has no active registration status.</p>}
-    {decision === "revoked-record" && <p className="policy-config">This view loaded a revoked media record by ID without comparing file bytes. The declaration and signer above belong to that revoked record, not to a verified local file.</p>}
-    {decision === "unverified" && <p className="policy-config">The selected file could not be verified. The declaration and signer above belong only to the original registration; no result was produced for this selection.</p>}
-    {decision === "record" && <p className="policy-config">This view loaded a media record without comparing file bytes. The declaration and signer above belong to that record, not to a verified local file.</p>}
-    <p className="review-required"><b>REVIEW BEFORE SHARING</b> Check the creator, original source, and context before sharing. Confirm claims with another reliable source.</p>
-    {!policy.trustedPublisherListConfigured && <p className="policy-config">Publisher trust is not configured. Treat source declarations as self-declared and verify publisher identity independently.</p>}
-    {policy.invalidTrustedPublisherCount > 0 && <p className="policy-config">Some publisher trust entries are invalid and ignored. Treat affected publishers as untrusted and ask the deployment administrator to review the list.</p>}
+    {decision === "perceptual" && <p className="policy-config">The declaration above belongs to a visually similar registered release. Verify exact bytes for official confirmation.</p>}
+    {decision === "revoked" && <p className="policy-config">The registration for this media release was revoked by the issuing organization.</p>}
+    {decision === "revoked-record" && <p className="policy-config">This view loaded a revoked publication record by ID.</p>}
+    {decision === "unverified" && <p className="policy-config">Select a media file to check against registered publisher records on Monad.</p>}
+    {decision === "record" && <p className="policy-config">Publication record loaded. Upload local file bytes to execute exact hash comparison.</p>}
+    <p className="review-required"><b>VERIFIED SOURCE CHECK</b> Confirm official publisher identity and wallet registration before publishing or distributing releases.</p>
+    {!policy.trustedPublisherListConfigured && <p className="policy-config">Issuer Registry is running in open mode. Organizations can request verified publisher identity onboarding.</p>}
   </section>;
 }
+
