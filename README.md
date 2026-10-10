@@ -77,7 +77,7 @@ For PNG, canonical SHA-256 excludes only a CRC-valid ProvenanceX metadata chunk,
 ### Prerequisites and clean setup
 
 - Git, Node.js 20 or newer, npm, and a browser wallet for wallet-driven writes.
-- Forge 1.7.1 is pinned through the portable npm package; OpenZeppelin Contracts 5.4.0 is pinned. Monad recommends checking its current Forge guidance before public deployment.
+- Forge 1.7.1 is pinned through the portable npm package; OpenZeppelin Contracts 5.4.0 is pinned. Monad's current documentation recommends Forge 1.8 or newer for deployment; this project uses 1.7.1 for reproducible local checks, so follow Monad's current deployment guidance before publishing a new contract.
 - A public repository clone URL has not yet been supplied. Replace the TODO below with the team's actual URL.
 
 ```sh
