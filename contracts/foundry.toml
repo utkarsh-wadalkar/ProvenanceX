@@ -1,0 +1,18 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+cache_path = "cache"
+solc_version = "0.8.28"
+evm_version = "prague"
+optimizer = true
+optimizer_runs = 200
+libs = []
+remappings = ["@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/"]
+
+[rpc_endpoints]
+monad = "https://testnet-rpc.monad.xyz"
+
+[profile.default.fuzz]
+runs = 256

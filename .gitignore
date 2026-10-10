@@ -1,0 +1,17 @@
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+.vercel/
+**/.vercel/
+coverage/
+**/coverage/
+*.tsbuildinfo
+.env*
+!.env.example
+!**/.env.example
+contracts/node_modules/
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/.env

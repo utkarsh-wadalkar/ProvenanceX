@@ -1,0 +1,22 @@
+{
+  "name": "provenancex-contracts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "forge": "forge",
+    "install:contracts": "npm install --prefix contracts",
+    "build": "forge build --root contracts",
+    "test": "forge test --root contracts -vv",
+    "coverage": "forge coverage --root contracts",
+    "export:abi": "node contracts/script/export-abi.mjs",
+    "export:deployment": "node contracts/script/export-deployment.mjs",
+    "integration:local": "npm run build && npm --prefix web run integration:local",
+    "test:exporter": "node --test contracts/script/export-deployment.test.mjs"
+  },
+  "devDependencies": {
+    "@foundry-rs/forge": "1.7.1"
+  },
+  "allowScripts": {
+    "@foundry-rs/forge@1.7.1": true
+  }
+}
