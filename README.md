@@ -1,28 +1,31 @@
 # ProvenanceX
 
-**A file provenance and source-declaration workflow for disaster-response teams reviewing viral media.** It can confirm that bytes match a registration and show what a wallet declared; it cannot decide whether an incident is real.
+**A media passport for photos, videos, files, and social sharing.** Compare a file with its registered original, inspect its signed source declaration, and follow its edit history. Declared AI/synthetic content is labeled separately from file integrity.
 
-> **Screenshot/GIF:** TODO: add a real screenshot or recorded demo GIF. Bundled media is sample content, not a product screenshot.
+Product screenshot: pending the general-media production update. Bundled artwork is sample content.
 
 ## Live demo and deployments
 
 | Resource | Status |
 | --- | --- |
-| Live app | TODO: add the public production URL after the deployed site has been checked. |
-| Repository | TODO: add the verified public repository URL. |
+| Live app | [provenancex.vercel.app](https://provenancex.vercel.app/) — public production site. |
+| Repository | [github.com/utkarsh-wadalkar/ProvenanceX](https://github.com/utkarsh-wadalkar/ProvenanceX) — public source repository. |
 | Monad Testnet contract (10143) | [`0xe33c5b4e0d9148bab301807d39bf2c0349037cce`](https://testnet.monadexplorer.com/address/0xe33c5b4e0d9148bab301807d39bf2c0349037cce), deployed at block `69776667`; deployment tx [`0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba`](https://testnet.monadexplorer.com/tx/0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba). |
 | Testnet source verification | [Sourcify exact match, chain 10143](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0xe33c5b4e0d9148bab301807d39bf2c0349037cce). |
 | Monad Mainnet contract (143) | Not deployed. Mainnet requires a separately funded key and operator decision. |
 | Custom domain | Pending the domain the team selects and controls. |
 | Demo / ad videos | TODO: add the published demo and creative ad video links. |
-| Social posts | TODO: add the published X and LinkedIn links. Draft copy is in [docs/posts.md](docs/posts.md). |
-| Demo transaction hashes | TODO: add only transactions from the final recorded demo rehearsal. The deployment transaction above is not a demo registration. |
+| Social posts | TODO: add the published X and LinkedIn links. Draft copy is in [docs/posts.md](docs/posts.md); the team handles publishing. |
+| Demo registration | Passport [`0x6c27ab45a494b45be78b79f5a173ea55c54040818d75420dbee2b8e01a768d6e`](https://provenancex.vercel.app/p/0x6c27ab45a494b45be78b79f5a173ea55c54040818d75420dbee2b8e01a768d6e), registration tx [`0xaa5c6aa579dcabfde0c73e92da53cd628e338ba7d9b61c72fd461d98a99cf250`](https://testnet.monadexplorer.com/tx/0xaa5c6aa579dcabfde0c73e92da53cd628e338ba7d9b61c72fd461d98a99cf250), block `69781769`. Signed tool: `[synthetic] Procedural demo artwork`; content hash `0x557bbb9f94db9c01266f7fd8a8d6158e472fc670399b830cf06ad4a4627c1686`. |
+| Demo append | Creator append tx [`0x67ea0b93fd4247372e8024e23bbd0b93fed1b81a7ae8f1bd80d0277ee6767c75`](https://testnet.monadexplorer.com/tx/0x67ea0b93fd4247372e8024e23bbd0b93fed1b81a7ae8f1bd80d0277ee6767c75), block `69785004`. |
 
 Monad Testnet uses chain ID `10143`, RPC `https://testnet-rpc.monad.xyz`, currency MON, and [Monad Explorer](https://testnet.monadexplorer.com/). Testnet MON is available from the [Monad Faucet](https://faucet.monad.xyz/). Confirm current network settings against [Monad's documentation](https://docs.monad.xyz).
 
+The general-media positioning and record-page file-comparison refinements are being validated locally for the next production build. The live URL currently serves the earlier revision; update this note after the new deployment is confirmed.
+
 ## 1. Problem and solution
 
-During a disaster, responders can receive alarming images or videos with little source context. ProvenanceX checks the exact file fingerprint against a registry and displays a signed declaration of captured, synthetic, edited, or unknown source, along with any configured publisher allowlist signal. If bytes differ, image perceptual matching can suggest a related image passport. It does not detect AI or deepfakes and cannot establish incident truth. Teams must corroborate the date, location, and context with another reliable source before dispatch.
+Photos, videos, and AI-generated media spread through social feeds, chats, and reposts with little source context. ProvenanceX lets everyday users check a downloaded file and lets creators register their original media. It compares the exact fingerprint with a public registry, displays the signer’s captured, synthetic, edited, or unknown declaration, and shows edit history and linked derivatives. Image similarity can suggest a related passport when bytes change. Download media from a post or upload the original file; the app does not ingest social post URLs or classify unregistered media with an AI detector. Review source identity and context before sharing.
 
 ## 2. How it works
 
@@ -41,7 +44,7 @@ flowchart LR
     H --> I[Review identity, declaration, and corroborating context]
 ```
 
-The source declaration is one of `[captured]`, `[synthetic]`, `[edited]`, or `[unknown]`. Legacy unprefixed records parse as unknown. The registering wallet signs the declaration; no model or detector classifies the media. An empty trusted-publisher list trusts nobody. A trusted match means only that the registering address appears in the configured list. Exact file integrity, signer identity, source declaration, and incident truth are separate questions.
+The source declaration is one of `[captured]`, `[synthetic]`, `[edited]`, or `[unknown]`. Legacy unprefixed records parse as unknown. The registering wallet signs the declaration; no model or detector classifies the media. An empty trusted-publisher list trusts nobody. A trusted match means only that the registering address appears in the configured list. Exact file integrity, signer identity, source declaration, and content truth are separate questions.
 
 ### Architecture and contract API
 
@@ -56,7 +59,7 @@ The source declaration is one of `[captured]`, `[synthetic]`, `[edited]`, or `[u
 | `appendEvent(passportId, eventType, dataHash)` | Creator or authorized operator | Append a signed-wallet-origin event to the history. |
 | `authorize(passportId, operator, allowed)` | Passport creator | Grant or remove append permission. |
 | `revoke(passportId)` | Passport creator | Revoke the passport and prevent later trail appends. |
-| `GET /api/verify?hash=0x…` | Public, read-only | Return exact-hash registry and declaration policy fields; it is not an incident verification service or SLA-backed API. |
+| `GET /api/verify?hash=0x…` | Public, read-only | Return exact-hash registry and declaration policy fields; it is not an content-truth verification service or SLA-backed API. |
 
 The contract is [ContentPassport.sol](contracts/src/ContentPassport.sol), built with Solidity 0.8.28, Prague EVM settings, OpenZeppelin EIP-712 and ECDSA. The web app contains the Create, Verify, Passport, and guided Demo pages. The source declaration is stored as a signed `tool` string to preserve the deployed contract and ABI.
 
@@ -64,7 +67,7 @@ The contract is [ContentPassport.sol](contracts/src/ContentPassport.sol), built 
 
 | App result | Meaning |
 | --- | --- |
-| Exact passport match / file integrity verified | The uploaded canonical file hash matches a registered passport. It says nothing by itself about source, author, or incident truth. |
+| Exact passport match / file integrity verified | The uploaded canonical file hash matches a registered passport. It says nothing by itself about source, author, or content truth. |
 | Declared captured media | The signer selected `[captured]`; unless its address is configured as a trusted publisher, treat this as self-declared. Even an allowlisted publisher requires independent context checks. |
 | Declared synthetic media | The signer selected `[synthetic]`; no AI detector ran. |
 | Modified / re-encoded candidate | An image dHash is within the matching threshold of a passport. The candidate's declaration belongs to that passport, not necessarily the uploaded copy. |
@@ -78,10 +81,10 @@ For PNG, canonical SHA-256 excludes only a CRC-valid ProvenanceX metadata chunk,
 
 - Git, Node.js 20 or newer, npm, and a browser wallet for wallet-driven writes.
 - Forge 1.7.1 is pinned through the portable npm package; OpenZeppelin Contracts 5.4.0 is pinned. Monad's current documentation recommends Forge 1.8 or newer for deployment; this project uses 1.7.1 for reproducible local checks, so follow Monad's current deployment guidance before publishing a new contract.
-- A public repository clone URL has not yet been supplied. Replace the TODO below with the team's actual URL.
+- Public repository: `https://github.com/utkarsh-wadalkar/ProvenanceX`.
 
 ```sh
-git clone TODO_PUBLIC_REPOSITORY_URL provenancex
+git clone https://github.com/utkarsh-wadalkar/ProvenanceX.git provenancex
 cd provenancex
 npm ci --ignore-scripts
 npm run install:contracts
@@ -131,7 +134,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://localhost:3000`. Connect a wallet on Monad Testnet to submit a real registration. In Create, choose the source declaration and tool/publisher name before signing. In Verify, upload the exact file; review the hash result, declaration, signer and allowlist signal. Open the passport for its event history. For a perceptual candidate, remember that the candidate's declaration does not automatically apply to the changed upload. Confirm date, location, and incident context independently before responders act.
+Open `http://localhost:3000`. Connect a wallet on Monad Testnet to submit a real registration. In Create, choose the source declaration and tool/publisher name before signing. In Verify, upload the exact file; review the hash result, declaration, signer and allowlist signal. Open the passport for its event history. For a perceptual candidate, remember that the candidate's declaration does not automatically apply to the changed upload. Review the original creator, source, and context before reposting or relying on a claim.
 
 The current UI manifest is configured for Monad Testnet at the contract address above. Testnet writes cost test MON but the contract currently charges no registration fee.
 
@@ -158,7 +161,7 @@ Set the actual deployment URL in the project environment as `NEXT_PUBLIC_SITE_UR
 
 An illustrative scenario, not a reported case study: a volunteer coordinator receives a flood image in a response chat. They check the exact file, inspect the signed source declaration and any configured publisher signal, then compare time, location, and context with another source before deciding whether to route it. If a screenshot differs from a registered image, dHash may surface a related passport; it cannot establish that the screenshot shows the same event.
 
-The first customer discovery should focus on disaster-response organizations, emergency communication teams, fact-checkers, and newsrooms. Test whether a file-level provenance check fits their intake workflow and whether they understand the self-attestation and corroboration limits. Record pilot metrics only after consented trials; no adoption, customer, or false-alarm reduction results are claimed.
+Customer discovery should start with everyday social-media users, independent creators, community moderators, fact-checkers, and publishers. Test whether checking downloaded media and registering originals fits their sharing workflow. Measure completion, understanding of signer declarations, repeat use, and demand for integrations. No adoption, customer, or misinformation-reduction results are claimed.
 
 Potential revenue is a per-asset managed service, a bulk verification API, or an embeddable widget for response platforms. The deployed contract has no fee, and the current endpoint has no SLA. These are proposals to validate with teams, not shipped services.
 

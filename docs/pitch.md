@@ -1,42 +1,46 @@
-# ProvenanceX: disaster-media provenance pitch
+# ProvenanceX: media passports for every share
 
 ## Purpose
 
-Disaster-response teams can receive alarming images and videos through chats and social feeds with no reliable context. ProvenanceX lets a team check whether the exact file matches a registered fingerprint, inspect what source declaration a signing wallet made, and read later recorded events. It is a provenance aid for human review, not an incident-truth or AI-detection system.
+Photos, videos, and AI-generated posts move through feeds and chats faster than their source information. ProvenanceX lets everyday users compare a downloaded file with a registered original, inspect its signed source declaration, and follow its edit history. Creators can register their media and share a public passport alongside their post.
 
 ## Illustrative user story
 
-A volunteer coordinator receives a flood image in a response chat. They upload the file, check whether its exact hash has a passport, review the signed declaration and the signer address, then compare the post's time and location with an independent source before routing it. A dHash candidate may point to a visually similar image if the upload has changed; it does not prove the image came from the same event. This describes a proposed workflow, not a verified case study or current customer story.
+A person receives a striking video in a group chat and wants to repost it. They download the video and check it in ProvenanceX. An exact match links to its registering wallet, declared source, and history. A synthetic declaration is visibly flagged. If no passport matches, the source remains unknown. For images, a similarity candidate can suggest a related original after an edit; it is a hint, not proof. This is a proposed workflow, not a measured customer case study.
 
-## What the product distinguishes
+## Three-minute pitch
 
-- **File identity:** exact canonical SHA-256 matching confirms that submitted bytes match a registered passport (with the documented ProvenanceX PNG metadata chunk excluded). It does not prove the content is true.
-- **Source declaration:** the registering wallet signs one of `[captured]`, `[synthetic]`, `[edited]`, or `[unknown]` in the existing `tool` value, along with the tool or publisher name. The declaration is self-attested. Legacy unprefixed declarations parse as unknown.
-- **Publisher signal:** a deployment can configure trusted wallet addresses through `NEXT_PUBLIC_TRUSTED_PUBLISHERS`. An exact match to a configured address can be displayed as an allowlist signal. An empty list trusts nobody; the allowlist does not prove legal identity or physical reality.
-- **Visual similarity:** dHash can suggest a related registered image when exact bytes differ. It can miss edits or identify unrelated lookalikes. Videos and other non-images get exact hashing only.
-- **Context corroboration:** response teams still need to check time, location, weather, and independent reporting before routing resources. ProvenanceX performs no automatic real/fake, deepfake, or incident classification.
+“Keep the source with every share. ProvenanceX gives photos, videos, and files a portable media passport on Monad. A creator signs what they know about the source: captured, synthetic, edited, or unknown. Anyone can compare the actual file with that registration and inspect its history. In the demo, we register a synthetic sample, verify the downloaded PNG, change a pixel, and show the exact match fail while image similarity finds a candidate. We then append a real history event. File identity, signed source claims, and content truth are separate questions. Our next step is testing whether creators and everyday users can make provenance part of how they post and repost.”
 
-## Target users to interview
+## What works today
 
-- Emergency response and disaster-relief teams that triage media submitted by the public.
-- Emergency communications groups that coordinate evidence between responders.
-- Newsrooms and fact-checkers that need to track file copies and source declarations.
-- Publishers or agencies willing to publish from an explicitly configured signer address.
+- Exact canonical SHA-256 comparison for photos, videos, and files; only ProvenanceX's own PNG passport metadata is excluded.
+- Wallet-signed captured, synthetic, edited, or unknown declarations; legacy untagged records remain unknown.
+- Optional publisher allowlist signal. It identifies configured wallet addresses, not legal identity or content truth.
+- Image dHash similarity hints, complete hash-chain history, parent/derivative links, and revocation.
+- Public passport pages, embeddable badges, PNG downloads, QR certificates, and a real Monad Testnet demo.
 
-These are research targets, not existing customers or confirmed demand.
+Download media from a social post for comparison; direct social URL ingestion is not implemented. Video checks compare exact bytes only. The product does not automatically classify AI/deepfakes or determine whether a post is true.
 
-## Testable pre-market-fit hypotheses
+## Pre-market-fit hypotheses
 
-1. **Intake fit:** in 8 observed workflow trials, at least 6 coordinators can complete an exact-file check and explain what it does not prove without prompting.
-2. **Source understanding:** at least 8 of 10 interviewees understand that `[captured]` is a signer declaration and that an allowlist match is not evidence of physical reality.
-3. **Changed-file behavior:** in 10 trials with original files, screenshots, and recompressed images, reviewers distinguish exact matches from dHash candidates and do not treat a candidate as proof that the file depicts the same event.
-4. **Integration demand:** at least one response, newsroom, or publisher team requests a scoped technical pilot with a named workflow owner and a review policy.
-5. **Operating model:** teams indicate whether they prefer a managed per-asset service, an API, or an embeddable widget after seeing the actual verification limits and costs. No price point is assumed.
+- Interview 10 everyday social users and 10 independent creators about their source-checking and original-sharing habits.
+- In eight observed trials, at least six people can verify a file and explain the difference between an exact match and a signed declaration without prompting.
+- Test originals, screenshots, and recompressed images; measure exact-match success, image-candidate precision, completion time, comprehension, and repeat use after a week.
+- Seek two consented pilots with creators, moderators, fact-checkers, or publishers, with a named workflow owner. These are targets, not claimed customers or demand.
 
-## Pilot measures
+## Revenue proposal
 
-With informed consent, measure completion time, exact-match success for unchanged files, changed-file candidate precision/recall on an agreed test set, how often users seek independent context, comprehension of the source-declaration limits, and repeat use after a week. Track whether teams request a pilot and identify an owner. Do not claim fewer false alarms, faster rescues, improved truth detection, customers, or traction unless a study measures those outcomes and supports the claim.
+Registration currently has no platform fee; users pay network gas. Proposed experiments: a free individual checker, an optional creator plan around $5/month for managed publishing tools, and a publisher/moderation integration starting around $49/month. These are pricing hypotheses requiring interviews and cost validation, not current plans or paid features. A future bulk API, managed service, and widget subscription could serve platforms. The current /api/verify is a public read-only hash lookup without authentication, bulk service, or an SLA.
 
-## Business model proposal
+## Innovation backed by the demo
 
-The current contract charges no registration fee. Potential future revenue includes a managed per-asset provenance service, a bulk API for media intake, or a publisher/response-platform widget. The existing `/api/verify` endpoint is a public read-only exact-hash lookup; it has no authentication, bulk service, or SLA. Validate demand, trust governance, privacy, and operating cost before building paid features.
+One portable record joins an EIP-712 source declaration, exact file identity, paged on-chain audit history, and derivative links. PNG passports travel inside a downloadable file; public links and badges share the record separately. Exact comparisons and image similarity remain visibly distinct. The implementation avoids full-history log scans and verifies the entire stored hash chain. Explain these working differences without claiming a novel AI detector or unsupported uniqueness.
+
+## Evidence and handoff
+
+Live app: https://provenancex.vercel.app/
+Public source: https://github.com/utkarsh-wadalkar/ProvenanceX
+Public deployment and demo receipts: [submission sheet](submission.md).
+
+Engineering handoff by **17:15 IST on 10 October 2026**; reserve 15 minutes for form/video and submit before **17:30 IST**. Build in Public recording and publication belong to Utkarsh.

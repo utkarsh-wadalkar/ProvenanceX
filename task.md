@@ -2,26 +2,28 @@
 
 Shared by Utkarsh and Codex. Update this file as work progresses; keep completed checks and pending deployment requirements accurate.
 
-Last updated: 10 October 2026, IST.
+Last updated: 10 October 2026, 15:17 IST.
+
+Submission schedule: engineering handoff by **17:15 IST**; reserve **17:15–17:30 IST** for the form and video; submit before **17:30 IST**, as requested.
 
 ## Current focus
 
-Contract deployed and source verified on public testnet. Align product messaging and provenance labels with disaster-response media verification, then publish Vercel and finish integration/docs. Build in Public belongs to Utkarsh.
+Public GitHub, verified testnet contract, and Vercel hosting are live. Finish a focused verification-status fix, publish the final build, and record submission evidence. Build in Public belongs to Utkarsh.
 
 ## Product purpose
 
-Help rescue teams assess viral disaster media through file-integrity proof, signed source declarations, and configured trusted publishers. Clearly flag declared AI/synthetic media. A cryptographic match does not establish that an incident actually happened; unknown origins, edits, and incident context still require review. Image perceptual matching and exact video/file hashing are supported; automatic deepfake detection is not implemented.
+General media provenance for everyday users, creators, and social sharing: register or verify photos, videos, and files; inspect signer-declared captured, synthetic, edited, or unknown source; follow edit history and derivatives. Clearly flag declared AI/synthetic media. Exact hashing proves file identity; image similarity is a hint. Download media from social posts for verification; social URL ingestion and automatic AI/deepfake detection are not implemented.
 
 ## Rubric — evidence before checking off
 
 | Track | Criterion | Points | Status / evidence |
 |---|---|---:|---|
-| Basic | Public GitHub repository | 25 | Pending repository URL and source publication |
+| Basic | Public GitHub repository | 25 | **Evidence ready:** [ProvenanceX](https://github.com/utkarsh-wadalkar/ProvenanceX), public repository |
 | Basic | README with live public page and contract address | 25 | Documentation task active; real links to be recorded |
 | Basic | Contract deployed on Monad Testnet | 25 | **Evidence ready:** address `0xe33c5b4e0d9148bab301807d39bf2c0349037cce`, confirmed block 69776667 |
-| Basic | Publicly hosted project | 25 | Vercel project ready; deployment next |
+| Basic | Publicly hosted project | 25 | **Evidence ready:** [live app](https://provenancex.vercel.app), public access verified; final status-label fix pending redeployment |
 | Project Working | All announced functions work | 25 | Unit checks and UI review pass; cross-stack/browser transaction checks pending |
-| Project Working | Live chain transaction during demo | 25 | Requires confirmed public testnet registration/append and rehearsed walkthrough |
+| Project Working | Live chain transaction during demo | 25 | **Rehearsal confirmed:** [register](https://testnet.monadexplorer.com/tx/0xaa5c6aa579dcabfde0c73e92da53cd628e338ba7d9b61c72fd461d98a99cf250) and [append](https://testnet.monadexplorer.com/tx/0x67ea0b93fd4247372e8024e23bbd0b93fed1b81a7ae8f1bd80d0277ee6767c75); repeat live during pitch |
 | Project Working | Explorer verifies contract source | 25 | **Source verified:** [public Monad Sourcify proof](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0xe33c5b4e0d9148bab301807d39bf2c0349037cce), `exact_match`; MonadVision data API currently returns CORS/403 errors |
 | Project Working | Someone else can run from README | 25 | Clean source install test active; teammate handoff still needed |
 | Bonus | Same contract deployed on Monad Mainnet | 25 | Fresh locally configured mainnet burner needed; shared chat key is testnet-only |
@@ -49,16 +51,16 @@ No points are claimed as awarded. Check criteria only after the required evidenc
 - [x] Build landing, Create, Verify, public Passport, and guided Demo pages.
 - [x] Build `/api/verify`, QR certificates, downloadable files, badge embeds, and bundled sample artwork.
 - [ ] Validate browser flows, responsive layout, and failure states. **Active**
-- [ ] Validate TypeScript helpers against the actual contract on a local Anvil chain.
+- [x] Validate TypeScript helpers against the actual contract on a local Anvil chain.
 - [ ] Complete README, submission sheet, social copy, video scripts, and demo checklist.
-- [ ] Align landing, source declarations, trusted publisher policy, verification labels, and pitch with disaster-response media triage. **Active**
-- [ ] Test setup from a clean source copy.
+- [ ] Align all product surfaces and pitch with general media provenance and social sharing. **Active**
+- [x] Test setup from a clean source copy; additionally cloned the public repository and passed its root setup and all 16 contract tests.
 
 ## Validation evidence
 
 - Contract: **16/16 tests pass**, including 256 Hamming-distance fuzz cases and stored-block assertions.
 - Contract coverage, including the block-number amendment: **100% lines and functions**, 99.15% statements, 95.24% branches.
-- Web: **17/17 unit tests pass**, covering hashing, metadata, trail, verification, size boundaries, and declaration/publisher policy. Optional Anvil integration is a separate run.
+- Web: **20 unit tests passed** before the general-media copy update, including record-only, revoked-record, and displayed-file status regressions. General-media validation is active. Optional Anvil integration passed separately.
 - Web typecheck and lint: **pass**.
 - Web production build: **passes**, including the UI review fixes. Windows `.next` permissions required an escalated build retry.
 - Contract task review: **approved**.
@@ -79,7 +81,7 @@ No points are claimed as awarded. Check criteria only after the required evidenc
 - Deployment: [confirmed transaction](https://testnet.monadvision.com/tx/0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba), block **69776667**, chain **10143**.
 - [ ] Publish the validated frontend to Vercel and verify public access.
 - [ ] Record live URL, contract / explorer links, and demo transaction hashes.
-- [ ] Publish source to a public GitHub repository. **Blocked: no remote configured; this environment prohibits Git commits.**
+- [x] Publish source to a public GitHub repository. Utkarsh connected and published `main`; Codex verified public access and deployed revision `c17d9ffd6cc25a10de8c424a056c77da5b8f279a`. This environment prohibits Codex from creating Git commits.
 - [ ] Record / publish demo and ad videos, social posts, and submission evidence.
 
 Do not paste private keys into this file or chat. Configure a disposable, funded testnet deployer in the ignored local environment file. An optional public demo key must be a separate testnet-only burner.
@@ -92,16 +94,22 @@ Do not paste private keys into this file or chat. Configure a disposable, funded
 - Perceptual matching is a heuristic, not cryptographic proof of origin; registration is creator self-attestation.
 - Full trail proof uses paged on-chain records. Historical transaction links query only the stored event block.
 - Deployment fields remain null until a successful real deployment receipt exists. Local-chain tests do not count as Monad Testnet deployment.
-- Preserve the existing feature branch and unrelated deletion of `OATH_MASTER_PROMPT.md`.
+- Preserve user Git changes. Utkarsh published the project on `main`; do not reset or recreate the earlier feature checkout.
 
 ## Update log
 
-- 10 Oct: Contract and shared libraries implemented; contract review approved. CRC fix and shared-library validation in progress. Shared tracker created at the user's request.
-- 10 Oct: Shared-library review approved; web tests, typecheck, lint, and production build pass. Complete UI implementation started.
-- 10 Oct: Portable Anvil installed and a disposable local chain started for integration validation. This is not a public testnet deployment.
-- 10 Oct: Landing, Create, Verify, Passport, Demo, and API route scaffolds are present. UI integration fixes and sample assets are being completed before validation.
-- 10 Oct: UI implementation complete; typecheck, tests, and production build pass. Browser checks and task review started; lint has nine image optimization warnings to assess.
-- 10 Oct: UI review fixes complete; 11 tests, typecheck, warning-free lint, and production build pass. Vercel project created; scoped re-review and final browser checks underway.
-- 10 Oct: UI fix review approved; docs/integration task started. Added every Basic, Project Working, Bonus, and human-owned Build in Public criterion. Funded testnet burner configured privately; fresh local key required for mainnet, desired custom domain pending.
-- 10 Oct: Public testnet contract confirmed at block 69776667; deployment transaction `0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba`. Sourcify exact source match verified. Fixed real-address TypeScript narrowing issue; production build passes with actual manifest.
-- 10 Oct: User clarified disaster-response purpose. Added focused task for signed source declarations, configured publisher trust, and clear AI/synthetic labels without claiming automatic real/fake detection. Git diff shows no unmerged entries or conflict markers; preserve existing README draft and merge targeted corrections.
+All new timestamps use IST (UTC+05:30). Earlier entries did not record clock times; those are marked explicitly rather than backdated.
+
+- 10 Oct, time not recorded: Contract and shared libraries implemented; contract review approved. CRC fix and shared-library validation in progress. Shared tracker created at the user's request.
+- 10 Oct, time not recorded: Shared-library review approved; web tests, typecheck, lint, and production build pass. Complete UI implementation started.
+- 10 Oct, time not recorded: Portable Anvil installed and a disposable local chain started for integration validation. This is not a public testnet deployment.
+- 10 Oct, time not recorded: Landing, Create, Verify, Passport, Demo, and API route scaffolds are present. UI integration fixes and sample assets are being completed before validation.
+- 10 Oct, time not recorded: UI implementation complete; typecheck, tests, and production build pass. Browser checks and task review started; lint has nine image optimization warnings to assess.
+- 10 Oct, time not recorded: UI review fixes complete; 11 tests, typecheck, warning-free lint, and production build pass. Vercel project created; scoped re-review and final browser checks underway.
+- 10 Oct, time not recorded: UI fix review approved; docs/integration task started. Added every Basic, Project Working, Bonus, and human-owned Build in Public criterion. Funded testnet burner configured privately; fresh local key required for mainnet, desired custom domain pending.
+- 10 Oct, time not recorded: Public testnet contract confirmed at block 69776667; deployment transaction `0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba`. Sourcify exact source match verified. Fixed real-address TypeScript narrowing issue; production build passes with actual manifest.
+- 10 Oct, time not recorded: User clarified disaster-response purpose. Added focused task for signed source declarations, configured publisher trust, and clear AI/synthetic labels without claiming automatic real/fake detection. Git diff shows no unmerged entries or conflict markers; preserve existing README draft and merge targeted corrections.
+- 10 Oct, time not recorded: Public GitHub connected; production Vercel deployment is READY at https://provenancex.vercel.app. Public homepage, live registry count, API, passport source declaration, and complete two-event trail verified. Real testnet demo registered, exported/reverified its PNG, detected changed pixels through dHash, rejected a different signer, then confirmed an append. Final fix removes exact-file claims from modified demo and record-only passport views.
+
+- 10 Oct, 14:45 IST: Added timestamps and the 17:15 engineering / 17:30 submission schedule. Final source-label fixes approved; web 20 tests pass, one optional integration test skipped, typecheck/lint/build pass. Public GitHub clean-clone contract setup and all 16 contract tests pass. Final frontend publication and documentation evidence update in progress.
+- 10 Oct, 15:17 IST: User expanded the product to general photos, videos, files, and social sharing and removed the earlier niche. Updated every frontend page, shared header/footer, verification guidance, metadata, README, pitch, and social/video drafts. Local validation and production publication are pending. Browser automation and the Luna documentation agent hit account usage limits; local source edits continue.
