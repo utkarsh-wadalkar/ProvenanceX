@@ -1,280 +1,171 @@
 # ProvenanceX
 
-**Portable provenance passports for digital assets on Monad.**
-Creators sign a claim about a file hash; later changes can be recorded in a paged, hash-chained trail. A signature records what a wallet claimed, not independent proof of authorship or AI generation.
+**A file provenance and source-declaration workflow for disaster-response teams reviewing viral media.** It can confirm that bytes match a registration and show what a wallet declared; it cannot decide whether an incident is real.
 
-> Built for **Monad Blitz Pune V3** (10 Oct 2026).
+> **Screenshot/GIF:** TODO: add a real screenshot or recorded demo GIF. Bundled media is sample content, not a product screenshot.
 
-> **Screenshot/GIF:** TODO: add a real product screenshot or demo GIF. Bundled artwork is sample content, not an app screenshot.
+## Live demo and deployments
 
----
+| Resource | Status |
+| --- | --- |
+| Live app | TODO: add the public production URL after the deployed site has been checked. |
+| Repository | TODO: add the verified public repository URL. |
+| Monad Testnet contract (10143) | [`0xe33c5b4e0d9148bab301807d39bf2c0349037cce`](https://testnet.monadexplorer.com/address/0xe33c5b4e0d9148bab301807d39bf2c0349037cce), deployed at block `69776667`; deployment tx [`0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba`](https://testnet.monadexplorer.com/tx/0x7909c5b4890c0ba88a03f63219e5b1478d790c71793229a9e3dced386730adba). |
+| Testnet source verification | [Sourcify exact match, chain 10143](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0xe33c5b4e0d9148bab301807d39bf2c0349037cce). |
+| Monad Mainnet contract (143) | Not deployed. Mainnet requires a separately funded key and operator decision. |
+| Custom domain | Pending the domain the team selects and controls. |
+| Demo / ad videos | TODO: add the published demo and creative ad video links. |
+| Social posts | TODO: add the published X and LinkedIn links. Draft copy is in [docs/posts.md](docs/posts.md). |
+| Demo transaction hashes | TODO: add only transactions from the final recorded demo rehearsal. The deployment transaction above is not a demo registration. |
 
-## Quick links 
-
-| What | Link |
-|---|---|
-| Live app | Pending deployment |
-| Public repo | TODO: verified repository URL |
-| Contract (Monad Testnet) | Not deployed; deployment pending |
-| Contract source verified | Not verified; pending deployment |
-| Contract (Monad Mainnet, bonus) | Not deployed |
-| Custom domain (bonus) | TODO: https://... or "none" |
-| Demo video (30s+) | TODO: link |
-| Ad video | TODO: link |
-| Social posts | TODO: X link, LinkedIn link |
-| Demo transactions | None; testnet deployment is pending |
-
-**Network:** Monad Testnet, chain ID `10143`, RPC `https://testnet-rpc.monad.xyz`, currency MON, explorer `https://testnet.monadexplorer.com`. Confirm current values at [docs.monad.xyz](https://docs.monad.xyz).
-
----
+Monad Testnet uses chain ID `10143`, RPC `https://testnet-rpc.monad.xyz`, currency MON, and [Monad Explorer](https://testnet.monadexplorer.com/). Testnet MON is available from the [Monad Faucet](https://faucet.monad.xyz/). Confirm current network settings against [Monad's documentation](https://docs.monad.xyz).
 
 ## 1. Problem and solution
 
-Digital assets are copied, edited, and reposted without a portable record of their history. ProvenanceX lets a wallet sign a claim for a canonical file hash, then records later events and derivative links in a paged, hash-chained on-chain trail. Anyone can compare an asset with the registry and recompute that trail. An image dHash can suggest visually similar files, but it is a heuristic rather than proof of shared origin. The wallet signature does not independently prove authorship, licensing, legal identity, or AI generation.
+During a disaster, responders can receive alarming images or videos with little source context. ProvenanceX checks the exact file fingerprint against a registry and displays a signed declaration of captured, synthetic, edited, or unknown source, along with any configured publisher allowlist signal. If bytes differ, image perceptual matching can suggest a related image passport. It does not detect AI or deepfakes and cannot establish incident truth. Teams must corroborate the date, location, and context with another reliable source before dispatch.
 
-## 3. How it works
+## 2. How it works
+
+The browser computes SHA-256 for the file and an image-only dHash for possible similarity lookup. The creator signs the content hash, a declared source tag and tool/publisher name together using EIP-712; that declaration is packed into the existing `tool` string and is limited to 64 UTF-8 bytes. The contract stores the passport and later audit events. A verifier reads bounded pages, checks the hash chain, and compares the exact file hash first. Any configured publisher allowlist is a deployment setting and review signal, not proof that the media depicts a real event.
 
 ```mermaid
 flowchart LR
-    A[File] --> B[SHA-256 + image dHash]
-    B --> C[Creator EIP-712 signature]
-    C --> D[register]
-    D --> E[Stored passport and trail events]
-    E --> F[Read pages and verify hash chain anywhere]
-    A --> G[Verify file]
-    F --> G
+    A[Image, video, or other file] --> B[SHA-256; image dHash]
+    B --> C[Source declaration + tool/publisher]
+    C --> D[Creator EIP-712 signature]
+    D --> E[register]
+    E --> F[Passport and paged trail events]
+    F --> G[Read pages and verify the hash chain]
+    A --> H[Check exact file]
+    G --> H
+    H --> I[Review identity, declaration, and corroborating context]
 ```
 
-**Verification outcomes**
+The source declaration is one of `[captured]`, `[synthetic]`, `[edited]`, or `[unknown]`. Legacy unprefixed records parse as unknown. The registering wallet signs the declaration; no model or detector classifies the media. An empty trusted-publisher list trusts nobody. A trusted match means only that the registering address appears in the configured list. Exact file integrity, signer identity, source declaration, and incident truth are separate questions.
 
-| Result | Meaning |
-|---|---|
-| 🟢 AUTHENTIC | Exact SHA-256 match to a registered, non-revoked passport; the result reflects a signed registration claim, not objective authorship |
-| 🟡 MODIFIED / RE-ENCODED COPY | No exact match, but image perceptual distance to a passport is 6 or less; similarity is only a hint |
-| 🔴 NO PASSPORT FOUND | No exact or similar match on-chain |
-| ⚪ REVOKED | Matching passport was revoked by its creator |
+### Architecture and contract API
 
-## 4. Smart contract
+| Component / function | Who can call | Purpose |
+| --- | --- | --- |
+| Browser hashing and `prepareAsset()` | Anyone using the app | Canonical SHA-256 for exact identity and dHash for image similarity. Videos and other non-image files get exact hashing only. |
+| `register(contentHash, perceptualHash, tool, metadataURI, parentId, sig)` | Any caller presenting a valid signature from the registering wallet | Register a file claim and optional parent. The declaration and tool name are signed in the `tool` value. |
+| `verifyByHash(contentHash)` / `passportIdByContentHash(contentHash)` | Anyone | Look up an exact registered file hash. |
+| `getPassport(passportId)` / `getChildren(passportId)` | Anyone | Read passport fields and direct derivatives. |
+| `totalPassports()` / `getPage(offset, limit)` | Anyone | Read registry size and pages, capped at 200. |
+| `trailLength(passportId)` / `getTrailPage(passportId, offset, limit)` | Anyone | Read the stored audit trail in pages capped at 200. |
+| `appendEvent(passportId, eventType, dataHash)` | Creator or authorized operator | Append a signed-wallet-origin event to the history. |
+| `authorize(passportId, operator, allowed)` | Passport creator | Grant or remove append permission. |
+| `revoke(passportId)` | Passport creator | Revoke the passport and prevent later trail appends. |
+| `GET /api/verify?hash=0x…` | Public, read-only | Return exact-hash registry and declaration policy fields; it is not an incident verification service or SLA-backed API. |
 
-`contracts/src/ContentPassport.sol` (Solidity ^0.8.24, OpenZeppelin `EIP712` + `ECDSA`).
+The contract is [ContentPassport.sol](contracts/src/ContentPassport.sol), built with Solidity 0.8.28, Prague EVM settings, OpenZeppelin EIP-712 and ECDSA. The web app contains the Create, Verify, Passport, and guided Demo pages. The source declaration is stored as a signed `tool` string to preserve the deployed contract and ABI.
 
-| Function | Caller | Purpose |
-|---|---|---|
-| `register(contentHash, perceptualHash, tool, metadataURI, parentId, sig)` | Anyone (signs as themselves) | Creates a passport. First creator of a given hash wins. Verifies the EIP-712 signature. |
-| `appendEvent(passportId, eventType, dataHash)` | Creator or authorized operator | Adds an event; `trailHead = keccak256(trailHead, eventType, dataHash, timestamp)` |
-| `authorize(passportId, operator, allowed)` | Creator | Grants or removes operator rights |
-| `revoke(passportId)` | Creator | Marks the passport revoked |
-| `verifyByHash(contentHash)` | View | Returns existence, passport ID, and passport data |
-| `getPassport(passportId)` | View | Full passport record |
-| `getChildren(passportId)` | View | Derivative passports |
-| `totalPassports()` / `getPage(offset, limit)` | View | Paged listing used for perceptual matching without log scans |
-| `trailLength(passportId)` / `getTrailPage(passportId, offset, limit)` | View | Paged on-chain audit history, including the initial `REGISTERED` entry |
-| `hammingDistance(a, b)` | Pure | Bit distance between two perceptual hashes |
+## 3. Verification outcomes and limits
 
-**Events:** `PassportRegistered`, `TrailEvent`, `OperatorSet`, `Revoked`.
-**Custom errors:** `AlreadyRegistered`, `ParentNotFound`, `Unauthorized`, `PassportNotFound`, `PassportRevoked`, `ToolTooLong`, `MetadataURITooLong`.
+| App result | Meaning |
+| --- | --- |
+| Exact passport match / file integrity verified | The uploaded canonical file hash matches a registered passport. It says nothing by itself about source, author, or incident truth. |
+| Declared captured media | The signer selected `[captured]`; unless its address is configured as a trusted publisher, treat this as self-declared. Even an allowlisted publisher requires independent context checks. |
+| Declared synthetic media | The signer selected `[synthetic]`; no AI detector ran. |
+| Modified / re-encoded candidate | An image dHash is within the matching threshold of a passport. The candidate's declaration belongs to that passport, not necessarily the uploaded copy. |
+| Revoked / no passport / source unknown | These are distinct states. A registry or RPC failure is shown as an error, not as no match. |
 
-## 5. Features by page
+For PNG, canonical SHA-256 excludes only a CRC-valid ProvenanceX metadata chunk, so embedding the passport does not change exact identity. Other PNG metadata remains hashed. Non-PNG images are converted to PNG before registration. Other file types are hashed as submitted. dHash is a non-cryptographic image similarity heuristic; crops, recompression, edits, and lookalike images can cause misses or false candidates. The zero sentinel is excluded from similarity search.
 
-| Route | What it does |
-|---|---|
-| `/` | Pitch, three-step explainer, live passport counter |
-| `/create` | Upload or generate an image, hash it, sign, register, download the passported file and certificate card (QR) |
-| `/verify` | Drop any file to get a verification result |
-| `/p/[id]` | Public passport page: details, audit trail with client-side hash-chain check, lineage, embeddable badge |
-| `/demo` | Guided four-step demo with a live transaction feed |
-| `/api/verify?hash=0x...` | JSON endpoint for platform integrations |
+## 4. Run it yourself
 
-## 6. Run it yourself
+### Prerequisites and clean setup
 
-### Prerequisites
+- Git, Node.js 20 or newer, npm, and a browser wallet for wallet-driven writes.
+- Forge 1.7.1 is pinned through the portable npm package; OpenZeppelin Contracts 5.4.0 is pinned. Monad recommends checking its current Forge guidance before public deployment.
+- A public repository clone URL has not yet been supplied. Replace the TODO below with the team's actual URL.
 
-- Node.js 20+
-- Forge 1.7.1 is pinned as a local npm binary; OpenZeppelin Contracts 5.4.0 is pinned in the Foundry project.
-- A browser wallet (MetaMask or similar)
-- Testnet MON from the [Monad Faucet](https://faucet.monad.xyz/) for public-chain writes
-
-> Use a **burner wallet** for testnet. Never use a wallet that holds real funds.
-
-### Step 1: clone and configure
-
-```bash
-git clone TODO_REPO_URL provenancex
+```sh
+git clone TODO_PUBLIC_REPOSITORY_URL provenancex
 cd provenancex
-cp .env.example .env
-```
-
-Install dependencies from the repository root and copy the deployment environment file:
-
-```bash
 npm ci --ignore-scripts
 npm run install:contracts
-cp .env.example contracts/.env
+npm --prefix web ci
 ```
 
-Set the private key locally in `contracts/.env`:
+The root Foundry package has an upstream POSIX-only postinstall that fails under Windows `cmd`; `npm ci --ignore-scripts` installs its optional platform binary, which runs without that script. The contracts install command installs OpenZeppelin. `web/package-lock.json` pins the app dependencies.
 
-```
-PRIVATE_KEY=0xYOUR_BURNER_PRIVATE_KEY
-CHAIN_ID=10143
-```
+### Environment and network
 
-### Step 2: test the contracts
+Copy `.env.example` to `contracts/.env`. It documents the deployer's local-only `PRIVATE_KEY`, `CHAIN_ID`, RPC override variables, and the optional frontend settings. To override frontend settings, copy `web/.env.example` to `web/.env.local`. `NEXT_PUBLIC_RPC_URL` selects the browser RPC; `NEXT_PUBLIC_SITE_URL` sets the public origin; `NEXT_PUBLIC_GITHUB_URL` controls the source link; and `NEXT_PUBLIC_TRUSTED_PUBLISHERS` is a comma-separated list of publisher wallet addresses configured by the deployer. The optional `NEXT_PUBLIC_DEMO_KEY` is public to every visitor and must only be a disposable, low-balance Testnet key. Never put a deployment key there.
 
-```bash
+| Testnet setting | Value |
+| --- | --- |
+| Network / chain ID | Monad Testnet / `10143` (`0x279f`) |
+| RPC | `https://testnet-rpc.monad.xyz` |
+| Explorer | [testnet.monadexplorer.com](https://testnet.monadexplorer.com/) |
+| Faucet | [faucet.monad.xyz](https://faucet.monad.xyz/) |
+
+### Contract checks
+
+```sh
 npm run build
 npm test
-npm run coverage
+npm run test:exporter
 ```
 
-### Step 3: deploy to Monad Testnet
+### Optional local-chain integration
 
-```bash
-npm exec -- forge script contracts/script/Deploy.s.sol:Deploy \
-  --root contracts \
-  --rpc-url monad \
-  --broadcast
-npm run export:deployment
+In a second terminal, start local Anvil on the expected chain, then run the integration command from the repository root:
+
+```sh
+npm exec --yes --package=@foundry-rs/anvil@1.7.1 -- anvil --host 127.0.0.1 --port 8545 --chain-id 10143
+npm run integration:local
 ```
 
-The exporter first checks the configured RPC chain ID and then requires a successful deployment receipt and mined block number before updating `web/src/lib/deployment.json` and `web/src/lib/abi.ts`. It defaults to Testnet 10143. Verify the source using Monad's current instructions and add the explorer link to this README only after confirmation. Mainnet chain 143 has a separate export manifest; see below.
+The integration generates ephemeral in-memory accounts, funds them through Anvil, deploys the compiled contract, registers an EIP-712 claim, checks duplicate rejection, reads the stored trail through the web ABI, verifies the hash chain, exercises creator/operator appends, and checks revocation. Fixture details go to ignored task scratch. Anvil results are local development evidence only, never Testnet or Mainnet deployment evidence.
 
-### Step 4: run the app
+### Web app checks and use
 
-```bash
-cd ../web
-npm ci
+```sh
+cd web
+npm test
+npm run typecheck
+npm run lint
+npm run build
 npm run dev
 ```
 
-Open http://localhost:3000. The canonical manifest is currently unconfigured, so reads and registrations remain pending until a real deployment is exported.
+Open `http://localhost:3000`. Connect a wallet on Monad Testnet to submit a real registration. In Create, choose the source declaration and tool/publisher name before signing. In Verify, upload the exact file; review the hash result, declaration, signer and allowlist signal. Open the passport for its event history. For a perceptual candidate, remember that the candidate's declaration does not automatically apply to the changed upload. Confirm date, location, and incident context independently before responders act.
 
-### Step 5: use it
+The current UI manifest is configured for Monad Testnet at the contract address above. Testnet writes cost test MON but the contract currently charges no registration fee.
 
-1. With a real Testnet deployment configured, connect a wallet and switch to Monad Testnet (10143) if prompted.
-2. Open `/demo` for the guided flow, or `/create` to prepare an asset, sign, and submit a registration.
-3. After a successful transaction receipt, download the passport PNG and verify that downloaded file in `/verify`.
-4. Change the image and run verification again. Exact identity should no longer match; a dHash candidate may appear for a visually similar image.
-5. If the deployment is pending, explore the local hashing flow and bundled samples; do not report a live registration or authenticity result.
+### Deploy and export
 
-### Step 6: deploy the frontend
+Use a separate low-balance deployment account. Keep its key only in `contracts/.env`. For Testnet, set `CHAIN_ID=10143` and use Foundry's `monad` RPC alias from the repository root:
 
-```bash
-cd web
-npx vercel --prod
+```sh
+npm exec -- forge script contracts/script/Deploy.s.sol:Deploy --root contracts --rpc-url monad --broadcast
+npm run export:deployment
 ```
 
-Set the same `NEXT_PUBLIC_*` variables in the Vercel project settings.
+The exporter verifies the selected RPC reports the requested chain ID, then requires a successful ContentPassport receipt and mined block number. With no `CHAIN_ID`, it defaults to Testnet and writes `web/src/lib/deployment.json` plus the generated ABI. The committed canonical Testnet manifest is already configured to the deployed contract above. Source verification is separate; claim it only after the explorer or Sourcify confirms an exact match.
 
-### Troubleshooting
+### Optional Mainnet 143 export
 
-| Problem | Fix |
-|---|---|
-| Wallet on the wrong network | Click "Switch to Monad Testnet" in the app header |
-| Transaction fails with insufficient funds | Get testnet MON from the faucet |
-| `AlreadyRegistered` error | That exact file already has a passport. Use `/verify`, or register a derivative with a parent ID |
-| Slow or failing reads | Public RPCs rate-limit. Retry, or set `NEXT_PUBLIC_RPC_URL` in `web/.env.local` |
-| Image generation fails | Use the upload option or the bundled samples in `web/public/samples` |
+No Mainnet deployment exists. A future operator must use a separate funded key and Mainnet RPC. Set `CHAIN_ID=143` and `MAINNET_RPC_URL` in the operator shell, deploy with `--rpc-url "$MAINNET_RPC_URL"`, then run `npm run export:deployment`. In PowerShell set `$env:CHAIN_ID='143'` and `$env:MAINNET_RPC_URL='https://<official-mainnet-rpc>'` before those commands. The exporter validates chain ID 143 and writes `web/src/lib/deployment.mainnet.json`; it does not overwrite the Testnet manifest. The current web UI still targets Testnet. Verify Mainnet source with the appropriate official flow before publishing any address.
 
-## 7. Demo script (3 minutes)
+### Production URL and custom domain
 
-| Time | Action | Result |
-|---|---|---|
-| 0:00 | Explain the problem and identify the configured network/address | Landing page |
-| 0:20 | If deployed, create/register a sample and wait for its real receipt | Certificate and receipt |
-| 1:00 | Verify the downloaded file | Exact registered hash or accurate pending state |
-| 1:30 | Change one pixel and explain exact-hash and dHash outcomes | Mismatch or similarity hint; no authorship claim |
-| 2:00 | If deployed, append a real event and verify the paged trail | Updated trail and verification result |
-| 2:30 | Describe business hypotheses and limitations | No unbuilt services presented as live |
+Set the actual deployment URL in the project environment as `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_GITHUB_URL` only after each is known and checked. Attach the team-selected domain to the existing Vercel project, add the DNS records Vercel shows, wait for domain verification, and check HTTPS routing before listing it here. The domain is pending team selection; no purchase or DNS change is claimed.
 
-## 8. Decisions and trade-offs
+## 5. Product scenario, roadmap, and business model
 
-- **Stored paged history instead of log-only `eth_getLogs` scans.** Public RPCs often restrict log ranges; the contract stores each trail entry and exposes `getTrailPage`, so a client can verify the full chain without historical log scans. The cost is additional storage gas per event.
-- **First creator wins.** The first registration of a given content hash owns it. This proves *earliest registration*, not legal authorship.
-- **Perceptual hash is a heuristic.** dHash can return false similarity and miss transformed copies; it cannot establish common origin. A zero hash is excluded from matching.
-- **Hashes, not files, on-chain.** Assets never leave the user's browser unless they choose to host them. Only hashes, a tool tag, and optional metadata URI are stored.
-- **Trail integrity is client-verifiable.** The UI recomputes the hash chain from events and compares it to the on-chain `trailHead`.
-- **Demo key fallback.** The optional public testnet-only burner key is off by default and must be disposable; it is visible to every visitor.
-- **Known limitations:** registration proves a wallet signed the stated claim; it does not prove an asset is "truly AI-made" or that the wallet created it.
+An illustrative scenario, not a reported case study: a volunteer coordinator receives a flood image in a response chat. They check the exact file, inspect the signed source declaration and any configured publisher signal, then compare time, location, and context with another source before deciding whether to route it. If a screenshot differs from a registered image, dHash may surface a related passport; it cannot establish that the screenshot shows the same event.
 
-## 9. Why Monad
+The first customer discovery should focus on disaster-response organizations, emergency communication teams, fact-checkers, and newsrooms. Test whether a file-level provenance check fits their intake workflow and whether they understand the self-attestation and corroboration limits. Record pilot metrics only after consented trials; no adoption, customer, or false-alarm reduction results are claimed.
 
-- Monad is the target EVM network, so the project can use standard Solidity and viem/wagmi tooling.
-- Finality, throughput, and transaction cost depend on live network conditions; no benchmark or fee guarantee is claimed here.
+Potential revenue is a per-asset managed service, a bulk verification API, or an embeddable widget for response platforms. The deployed contract has no fee, and the current endpoint has no SLA. These are proposals to validate with teams, not shipped services.
 
-## 10. Business model
+Roadmap: test the intake workflow with response and verification teams; improve source declaration and trusted-publisher administration; evaluate ingestion of external source attestations; and consider a separate Mainnet deployment only after pilot demand, trust governance, security, and costs are understood. See [docs/pitch.md](docs/pitch.md) for measurable hypotheses and [docs/demo-checklist.md](docs/demo-checklist.md) for rehearsal steps.
 
-| Stream | Description |
-|---|---|
-| Per-asset service fee | Proposed managed registration service; current contract has no registration fee |
-| Enterprise API | Proposed bulk provenance/verification service; current endpoint is a read-only exact-hash lookup without an SLA |
-| Embeddable widget | Proposed platform integration for marketplaces and creative tools |
-| Compliance tooling | Possible audit exports; no compliance guarantee is provided |
+## 6. Submission links, team, and license
 
-## 11. Product hypotheses and roadmap
+See [docs/submission.md](docs/submission.md) for the handoff checklist and [docs/posts.md](docs/posts.md) for ready-to-paste X/LinkedIn copy, a thread, and video scripts. Update only with real URLs, transactions, and view-count evidence. Social publishing is the team's task.
 
-See [docs/pitch.md](docs/pitch.md) for target-customer hypotheses, pilot metrics, and innovation limits. Roadmap: configure and verify the Testnet deployment; run creator and platform workflow pilots; improve integrations based on measured feedback; consider paid services and a separate Mainnet deployment only after validating demand and operating costs.
-
-## 12. Mainnet deployment path
-
-Mainnet is chain 143 and requires a separately funded key and RPC supplied by the deployer. Set `CHAIN_ID=143` and `MAINNET_RPC_URL` in `contracts/.env`, then run `npm exec -- forge script contracts/script/Deploy.s.sol:Deploy --root contracts --rpc-url "$MAINNET_RPC_URL" --broadcast` (PowerShell users can pass `$env:MAINNET_RPC_URL`). Export with `CHAIN_ID=143 MAINNET_RPC_URL=... npm run export:deployment` (set those variables in the shell using its normal syntax). The exporter writes `web/src/lib/deployment.mainnet.json` and leaves the Testnet manifest intact. The UI remains configured for Testnet. Verify the actual source and record the explorer URL after deployment; no Mainnet deployment is claimed.
-
-## 13. Team and license
-
-TODO: add confirmed team names and roles before submission. The project is MIT licensed; see [LICENSE](LICENSE).
-
-## 11. Roadmap
-
-- [ ] Passkey signing via Monad P256 precompile
-- [ ] Signed attestations from AI tools and C2PA manifest import/export
-- [ ] Video and audio perceptual hashing
-- [ ] Browser extension that shows passport badges on any website
-- [ ] Mainnet launch and fee module
-- [ ] Indexer and public API with caching
-
-## 12. Repository layout
-
-```
-.
-├── contracts/            Foundry project
-│   ├── src/ContentPassport.sol
-│   ├── test/ContentPassport.t.sol
-│   └── script/Deploy.s.sol
-├── web/                  Next.js 14 app (TypeScript, Tailwind, wagmi + viem)
-│   ├── src/app/          Pages and API routes
-│   └── src/lib/          hash, phash, pngMeta, eip712, trail, registry
-├── docs/                 submission, posts, demo checklist
-├── .env.example
-└── README.md
-```
-
-## 13. Tech stack
-
-Solidity 0.8.x, Foundry, OpenZeppelin, Monad Testnet, Next.js 14, TypeScript, Tailwind CSS, wagmi, viem, Web Crypto API, Vercel.
-
-## 14. Team
-
-| Name | Role | Links |
-|---|---|---|
-| TODO | Smart contracts | TODO |
-| TODO | Frontend | TODO |
-| TODO | Product, content, docs | TODO |
-
-## 15. Hackathon checklist (for judges)
-
-- [X] Public GitHub repo (URL pending verification)
-- [ ] README with live URL and contract address (pending deployment)
-- [ ] Contracts deployed on Monad Testnet (pending; deployment.json is null)
-- [ ] Project publicly hosted (pending)
-- [ ] Contract source verified on explorer (TODO: link)
-- [ ] Runnable from this README without help
-- [ ] Posts tagging @monad, @monad_dev, @geeky_kartikey
-- [ ] Demo video and creative ad video posted
-- [ ] Mainnet deployment (bonus)
-- [ ] Custom domain (bonus)
-
-> Update the checkboxes honestly before the 5:45 PM IST submission deadline.
-
-## 16. License
-
-MIT. See [LICENSE](./LICENSE).
+Team: TODO: add confirmed names and roles. The project is MIT licensed; see [LICENSE](LICENSE).

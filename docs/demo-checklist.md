@@ -1,26 +1,27 @@
-# Demo checklist
+# Disaster-media provenance demo checklist
 
 ## Before the demo
 
-- [ ] Production URL opens and matches the deployed build.
-- [ ] Testnet address, chain ID 10143, explorer link, and source-verification status are accurate.
-- [ ] Wallet has testnet funds; selected network is Monad Testnet (10143).
-- [ ] Disposable sample assets are loaded, and their expected exact/perceptual outcomes are known.
-- [ ] Create, Verify, and passport/demo tabs are open; wallet is connected to the intended account.
-- [ ] A backup recording of a successful real demo flow is available offline.
-- [ ] Laptop battery is charged or connected; Wi-Fi and mobile hotspot backup are checked.
-- [ ] Browser console is clear of errors; no private keys or seed phrases are visible.
+- [ ] Open the checked production URL and confirm the testnet contract and network labels.
+- [ ] Confirm the wallet has test MON and is set to Monad Testnet (chain 10143).
+- [ ] Load a clearly labeled illustrative synthetic sample, the real registered passport file, and one edited copy; know the expected exact/candidate states.
+- [ ] Decide and show the source declaration selected for each registration. Do not relabel the legacy untagged registration as synthetic.
+- [ ] If a trusted publisher is demonstrated, confirm its signer address is in the deployed allowlist; explain that this is a review signal only.
+- [ ] Open Verify, the sample passport, the explorer, and the relevant independent context source in separate tabs.
+- [ ] Record a backup video using a real transaction receipt and actual on-screen outcomes.
+- [ ] Check browser console, Wi-Fi/hotspot, laptop battery, and that no private keys or seed phrases are visible.
 
 ## During the demo
 
-- [ ] Register a sample only if the connected contract is the intended public testnet deployment.
-- [ ] Wait for and capture the real successful transaction receipt.
-- [ ] Download the registered PNG and verify the actual downloaded file.
-- [ ] Change a pixel and explain that dHash similarity is a heuristic, not authorship proof.
-- [ ] Show the passport's paged event history and local hash-chain result.
-- [ ] If no public deployment is configured, show the honest pending state rather than claiming a live transaction.
+- [ ] Explain that ProvenanceX checks registered file identity and signed source declarations; it does not determine whether an incident is real or detect AI/deepfakes.
+- [ ] Register only the clearly identified demo sample and wait for the actual Testnet receipt.
+- [ ] Verify the downloaded file's exact hash, then show its signed declaration and signer/allowlist status separately.
+- [ ] Change a pixel or use the edited sample. Label any dHash result as a similarity hint, not proof that files depict the same event.
+- [ ] Show the passport's paged trail and its hash-chain result.
+- [ ] Close by checking date, location, and context against another source before any responder is sent.
+- [ ] If an RPC or deployment error occurs, state that no verification result was produced; do not present the error as “no record.”
 
 ## After the demo
 
-- [ ] Add only real transaction hashes, video links, and published post links to `docs/submission.md`.
-- [ ] Capture genuine view-count screenshots after posts are published; do not estimate counts.
+- [ ] Add only the final rehearsal's actual registration transaction hashes and published media links to `docs/submission.md`.
+- [ ] Capture genuine post analytics after publication; otherwise leave the counts unavailable.
